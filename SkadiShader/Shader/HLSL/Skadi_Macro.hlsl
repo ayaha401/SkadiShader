@@ -1,0 +1,10 @@
+#ifndef SKADI_MACRO
+#define SKADI_MACRO
+
+#define SKADI_EPS .000001
+#define SKADI_PI 3.14159265359
+#define SKADI_TAU 6.2831850718
+
+#define COMPARE_EPS(n) max(n,SKADI_EPS)
+
+#endif
