@@ -211,4 +211,5 @@ Shader "Skadi/Sprite_Lit"
         // }
     }
     Fallback "Sprites/Default"
+		CustomEditor "Skadi_GUI"
 }
