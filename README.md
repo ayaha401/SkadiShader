@@ -1,0 +1,2 @@
+# SkadiShader
+URPでLight2D環境下の2Dゲーム用シェーダー
