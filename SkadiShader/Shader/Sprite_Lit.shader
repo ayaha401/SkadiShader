@@ -1,9 +1,10 @@
-Shader "Skadi/Sprite_Lit"
+Shader "Skadi/Skadi_Sprite_Lit"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
         _OTex ("OTexture",2D) = "black" {}
+        [Toggle]_UseOutline ("Use Outline", int) = 0
         _OutlineColor ("OutlineColor",Color) = (1.0,1.0,1.0,1.0)
         // [HideInInspector] _Color("Tint", Color) = (1,1,1,1)
         // [HideInInspector] _RendererColor("RendererColor", Color) = (1,1,1,1)
@@ -138,65 +139,12 @@ Shader "Skadi/Sprite_Lit"
             }
 
             HLSLPROGRAM
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-            #include "../Shader/HLSL/Skadi_Macro.hlsl"
 
             #pragma vertex vert
             #pragma fragment frag
-
             #pragma multi_compile _ DEBUG_DISPLAY
 
-            TEXTURE2D(_OTex);    float4 _OTex_ST;
-            SAMPLER(sampler_OTex);
-
-            float3 _OutlineColor;
-
-            struct appdata
-            {
-                float3 positionOS : POSITION;
-                float4 color : COLOR;
-                float2 uv : TEXCOORD0;
-                UNITY_VERTEX_INPUT_INSTANCE_ID
-            };
-
-            struct v2f
-            {
-                float4 positionCS : SV_POSITION;
-                float3 color : COLOR;
-                float2 uv : TEXCOORD0;
-
-                #if defined(DEBUG_DISPLAY)
-                float3  positionWS  : TEXCOORD2;
-                #endif
-                UNITY_VERTEX_OUTPUT_STEREO
-            };
-
-            v2f vert (appdata v)
-            {
-                v2f o = (v2f)0;
-                UNITY_SETUP_INSTANCE_ID(v);
-                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
-
-                o.positionCS = TransformObjectToHClip(v.positionOS);
-
-                #if defined(DEBUG_DISPLAY)
-                o.positionWS = TransformObjectToWorld(v.positionOS);
-                #endif
-
-                o.uv = TRANSFORM_TEX(v.uv, _OTex);
-
-                o.color = _OutlineColor;
-                return o;
-            }
-
-            float4 frag (v2f i) : SV_Target
-            {
-                const float outline = SAMPLE_TEXTURE2D(_OTex, sampler_OTex, i.uv).r;
-                float4 outlineCol = float4(outline.xxx * i.color, outline);
-                clip(outlineCol.a-SKADI_EPS);
-
-                return outlineCol;
-            }
+            #include "../Shader/HLSL/Skadi_Unlit_Outline.hlsl"
 
             ENDHLSL
         }
