@@ -11,6 +11,7 @@ Shader "Skadi/Sprite_Lit"
         // [HideInInspector] _AlphaTex("External Alpha", 2D) = "white" {}
         // [HideInInspector] _EnableExternalAlpha("Enable External Alpha", Float) = 0
     }
+
     SubShader
     {
         Tags 
@@ -50,10 +51,6 @@ Shader "Skadi/Sprite_Lit"
 
             TEXTURE2D(_MainTex);    float4 _MainTex_ST;
             SAMPLER(sampler_MainTex);
-
-            TEXTURE2D(_OTex);    float4 _OTex_ST;
-            SAMPLER(sampler_OTex);
-            float3 _OutlineColor;
 
             #if USE_SHAPE_LIGHT_TYPE_0
             SHAPE_LIGHT(0)
@@ -120,96 +117,90 @@ Shader "Skadi/Sprite_Lit"
             {
                 const float4 mainCol = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv) * i.color;
                 const float4 mask = (float4)0.;
-                const float4 outlineCol = SAMPLE_TEXTURE2D(_OTex, sampler_OTex, i.uv);
                 SurfaceData2D surfaceData;
                 InputData2D inputData;
 
-                InitializeSurfaceData(mainCol.rgb, mainCol.a + SKADI_EPS, mask, surfaceData);
+                InitializeSurfaceData(mainCol.rgb, mainCol.a, mask, surfaceData);
                 InitializeInputData(i.uv, i.lightingUV, inputData);
 
                 float4 lastCol = CombinedShapeLightShared(surfaceData, inputData);
-                // lastCol.rgb += outlineCol.rgb;
-                lastCol.a -= SKADI_EPS;
-                lastCol.rgb += outlineCol.rgb*_OutlineColor*outlineCol.a;
-                lastCol.a += outlineCol.a;
-                // lastCol.a = 
-                // return lastCol;
-                return float4(lastCol.rgb,lastCol.a);
+                return lastCol;
             }
             ENDHLSL
         }
 
-        // Pass
-        // {
-        //     Name "Outline"
-        //     Tags
-        //     {
-        //         "LightMode" = "Universal2D"
-        //     }
+        Pass
+        {
+            Name "Unlit_Outline"
+            Tags
+            {
+                "LightMode" = "SRPDefaultUnlit"
+            }
 
-        //     HLSLPROGRAM
-        //     #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            HLSLPROGRAM
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "../Shader/HLSL/Skadi_Macro.hlsl"
 
-        //     #pragma vertex vert
-        //     #pragma fragment frag
+            #pragma vertex vert
+            #pragma fragment frag
 
-        //     #pragma multi_compile _ DEBUG_DISPLAY
+            #pragma multi_compile _ DEBUG_DISPLAY
 
-        //     #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/LightingUtility.hlsl"
+            TEXTURE2D(_OTex);    float4 _OTex_ST;
+            SAMPLER(sampler_OTex);
 
-        //     TEXTURE2D(_OTex);    float4 _OTex_ST;
-        //     SAMPLER(sampler_OTex);
+            float3 _OutlineColor;
 
-        //     float3 _OutlineColor;
+            struct appdata
+            {
+                float3 positionOS : POSITION;
+                float4 color : COLOR;
+                float2 uv : TEXCOORD0;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
+            };
 
-        //     struct appdata
-        //     {
-        //         float3 positionOS : POSITION;
-        //         float4 color : COLOR;
-        //         float2 uv : TEXCOORD0;
-        //         UNITY_VERTEX_INPUT_INSTANCE_ID
-        //     };
+            struct v2f
+            {
+                float4 positionCS : SV_POSITION;
+                float3 color : COLOR;
+                float2 uv : TEXCOORD0;
 
-        //     struct v2f
-        //     {
-        //         float4 positionCS : SV_POSITION;
-        //         float4 color : COLOR;
-        //         float2 uv : TEXCOORD0;
+                #if defined(DEBUG_DISPLAY)
+                float3  positionWS  : TEXCOORD2;
+                #endif
+                UNITY_VERTEX_OUTPUT_STEREO
+            };
 
-        //         #if defined(DEBUG_DISPLAY)
-        //         float3  positionWS  : TEXCOORD2;
-        //         #endif
-        //         UNITY_VERTEX_OUTPUT_STEREO
-        //     };
+            v2f vert (appdata v)
+            {
+                v2f o = (v2f)0;
+                UNITY_SETUP_INSTANCE_ID(v);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-        //     v2f vert (appdata v)
-        //     {
-        //         v2f o = (v2f)0;
-        //         UNITY_SETUP_INSTANCE_ID(v);
-        //         UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+                o.positionCS = TransformObjectToHClip(v.positionOS);
 
-        //         o.positionCS = TransformObjectToHClip(v.positionOS);
+                #if defined(DEBUG_DISPLAY)
+                o.positionWS = TransformObjectToWorld(v.positionOS);
+                #endif
 
-        //         #if defined(DEBUG_DISPLAY)
-        //         o.positionWS = TransformObjectToWorld(v.positionOS);
-        //         #endif
+                o.uv = TRANSFORM_TEX(v.uv, _OTex);
 
-        //         o.uv = TRANSFORM_TEX(v.uv, _OTex);
+                o.color = _OutlineColor;
+                return o;
+            }
 
-        //         o.color.rgb = _OutlineColor;
-        //         o.color.a = 1.;
-        //         return o;
-        //     }
+            float4 frag (v2f i) : SV_Target
+            {
+                const float outline = SAMPLE_TEXTURE2D(_OTex, sampler_OTex, i.uv).r;
+                float4 outlineCol = float4(outline.xxx * i.color, outline);
+                clip(outlineCol.a-SKADI_EPS);
 
-        //     float4 frag (v2f i) : SV_Target
-        //     {
-        //         const float4 col = SAMPLE_TEXTURE2D(_OTex, sampler_OTex, i.uv) * i.color;
-        //         return col;
-        //     }
+                return outlineCol;
+            }
 
-        //     ENDHLSL
-        // }
+            ENDHLSL
+        }
     }
-    Fallback "Sprites/Default"
+        Fallback "Sprites/Default"
 		CustomEditor "Skadi_GUI"
 }
