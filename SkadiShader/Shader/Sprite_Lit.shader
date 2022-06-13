@@ -3,6 +3,7 @@ Shader "Skadi/Skadi_Sprite_Lit"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _LightingMask ("Lighting Mask", 2D) = "white" {}
         _OTex ("OTexture",2D) = "black" {}
         [Toggle]_UseOutline ("Use Outline", int) = 0
         _OutlineColor ("OutlineColor",Color) = (1.0,1.0,1.0,1.0)
@@ -52,6 +53,9 @@ Shader "Skadi/Skadi_Sprite_Lit"
 
             TEXTURE2D(_MainTex);    float4 _MainTex_ST;
             SAMPLER(sampler_MainTex);
+
+            TEXTURE2D(_LightingMask);
+            SAMPLER(sampler_LightingMask);
 
             #if USE_SHAPE_LIGHT_TYPE_0
             SHAPE_LIGHT(0)
@@ -117,7 +121,7 @@ Shader "Skadi/Skadi_Sprite_Lit"
             float4 frag (v2f i) : SV_Target
             {
                 const float4 mainCol = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv) * i.color;
-                const float4 mask = (float4)0.;
+                const float4 mask = SAMPLE_TEXTURE2D(_LightingMask, sampler_LightingMask, i.uv);
                 SurfaceData2D surfaceData;
                 InputData2D inputData;
 
