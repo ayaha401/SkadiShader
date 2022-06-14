@@ -9,6 +9,7 @@ Shader "Skadi/Skadi_Sprite_Lit"
         _OutlineColor ("OutlineColor",Color) = (1.0,1.0,1.0,1.0)
         [Toggle]_UseEmission ("Use Emissin", int) = 0
         _EmissionPower ("Emission Power", float) = 200
+        [Enum(Multi, 0, Fill, 1)]_BlendMode ("Blend Mode", int) = 0
         // [HideInInspector] _Color("Tint", Color) = (1,1,1,1)
         // [HideInInspector] _RendererColor("RendererColor", Color) = (1,1,1,1)
         // [HideInInspector] _Flip("Flip", Vector) = (1,1,1,1)

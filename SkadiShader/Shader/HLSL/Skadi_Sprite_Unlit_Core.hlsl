@@ -18,6 +18,9 @@ SamplerState sampler_MainTex;
 uniform int _UseEmission;
 uniform float _EmissionPower;
 
+// Fill
+uniform int _BlendMode;
+
 struct appdata
 {
     float3 positionOS : POSITION;

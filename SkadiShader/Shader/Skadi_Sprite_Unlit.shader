@@ -8,13 +8,14 @@ Shader "Skadi/Skadi_Sprite_Unlit"
         _OutlineColor ("OutlineColor",Color) = (1.0,1.0,1.0,1.0)
         [Toggle]_UseEmission ("Use Emissin", int) = 0
         _EmissionPower ("Emission Power", float) = 200
+        [Enum(Multi, 0, Fill, 1)]_BlendMode ("Blend Mode", int) = 0
     }
 
     SubShader
     {
         Tags
         {
-            "Queue" = "Transparent" 
+            "Queue" = "Transparent"
             "RenderType" = "Transparent" 
             "RenderPipeline" = "UniversalPipeline"
             "PreviewType" = "Plane"

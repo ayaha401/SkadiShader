@@ -19,7 +19,12 @@ float4 frag (v2f i) : SV_Target
         }
     #endif
 
-    float4 lastCol = mainCol;
+    // ColorBlend
+    float3 blendCol = mainCol.rgb;
+    if(_BlendMode == 0) blendCol = blendCol * i.color.rgb;
+    if(_BlendMode == 1) blendCol = lerp(mainCol.rgb, i.color.rgb, 1.);
+
+    float4 lastCol = float4(blendCol, mainCol.a);
     
     // Emission
     float3 emissionCol = 0.;

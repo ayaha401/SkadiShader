@@ -15,6 +15,9 @@ SamplerState sampler_MainTex;
 uniform int _UseEmission;
 uniform float _EmissionPower;
 
+// Fill
+uniform int _BlendMode;
+
 #if USE_SHAPE_LIGHT_TYPE_0
 SHAPE_LIGHT(0)
 #endif

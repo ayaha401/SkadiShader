@@ -1,6 +1,6 @@
 SkadiShader
 
-v0.1.7
+v0.1.8
 
-Fix outlineColor
+Add BlendMode
 2022/06/14
