@@ -1,6 +1,6 @@
 SkadiShader
 
-v0.1.5
+v0.1.6
 
-Add Emission
+Add Unlit
 2022/06/14

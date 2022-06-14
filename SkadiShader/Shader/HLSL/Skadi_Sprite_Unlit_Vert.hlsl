@@ -1,5 +1,5 @@
-#ifndef SKADI_SPRITE_LIT_VERT
-#define SKADI_SPRITE_LIT_VERT
+#ifndef SKADI_SPRITE_UNLIT_VERT
+#define SKADI_SPRITE_UNLIT_VERT
 
 v2f vert (appdata v)
 {
@@ -15,7 +15,6 @@ v2f vert (appdata v)
 
     o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
-    o.lightingUV = half2(ComputeScreenPos(o.positionCS / o.positionCS.w).xy);
     o.color = v.color;
     return o;
 }

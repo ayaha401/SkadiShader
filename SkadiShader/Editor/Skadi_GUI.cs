@@ -5,7 +5,7 @@ using UnityEditor;
 
 public class Skadi_GUI : ShaderGUI
 {
-    private string version = "0.1.5";
+    private string version = "0.1.6";
 
 
     public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] Prop)
