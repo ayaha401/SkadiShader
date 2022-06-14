@@ -21,7 +21,7 @@ struct appdata
 struct v2f
 {
     float4 positionCS : SV_POSITION;
-    float3 color : COLOR;
+    float4 color : COLOR;
     float2 uv : TEXCOORD0;
 
     #if defined(DEBUG_DISPLAY)
@@ -41,13 +41,13 @@ v2f vert (appdata v)
     o.positionCS = TransformObjectToHClip(v.positionOS);
 
     #if defined(DEBUG_DISPLAY)
-    o.positionWS = TransformObjectToWorld(v.positionOS);
+        o.positionWS = TransformObjectToWorld(v.positionOS);
     #endif
 
     
     o.uv = TRANSFORM_TEX(v.uv, _OETex);
 
-    o.color = _OutlineColor;
+    o.color = float4(_OutlineColor, v.color.a);
     return o;
 }
 
@@ -56,7 +56,7 @@ float4 frag (v2f i) : SV_Target
     if(!_UseOutline) discard;
 
     const float outline = SAMPLE_TEXTURE2D(_OETex, sampler_OETex, i.uv).r;
-    float4 outlineCol = float4(outline.xxx * i.color, outline);
+    float4 outlineCol = float4(outline.xxx * i.color.rgb, outline * i.color.a);
     clip(outlineCol.a-SKADI_EPS);
 
     return outlineCol;

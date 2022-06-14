@@ -1,6 +1,6 @@
 SkadiShader
 
-v0.1.6
+v0.1.7
 
-Add Unlit
+Fix outlineColor
 2022/06/14
