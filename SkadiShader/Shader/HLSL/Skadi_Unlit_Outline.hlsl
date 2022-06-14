@@ -4,10 +4,10 @@
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 #include "../Shader/HLSL/Skadi_Macro.hlsl"
 
-TEXTURE2D(_OTex);    float4 _OTex_ST;
-SAMPLER(sampler_OTex);
+TEXTURE2D(_OETex);    float4 _OETex_ST;
+SamplerState sampler_OETex;
 
-uniform float _UseOutline;
+uniform int _UseOutline;
 uniform float3 _OutlineColor;
 
 struct appdata
@@ -45,7 +45,7 @@ v2f vert (appdata v)
     #endif
 
     
-    o.uv = TRANSFORM_TEX(v.uv, _OTex);
+    o.uv = TRANSFORM_TEX(v.uv, _OETex);
 
     o.color = _OutlineColor;
     return o;
@@ -55,7 +55,7 @@ float4 frag (v2f i) : SV_Target
 {
     if(!_UseOutline) discard;
 
-    const float outline = SAMPLE_TEXTURE2D(_OTex, sampler_OTex, i.uv).r;
+    const float outline = SAMPLE_TEXTURE2D(_OETex, sampler_OETex, i.uv).r;
     float4 outlineCol = float4(outline.xxx * i.color, outline);
     clip(outlineCol.a-SKADI_EPS);
 

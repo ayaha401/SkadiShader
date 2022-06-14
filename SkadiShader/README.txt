@@ -1,7 +1,6 @@
 SkadiShader
 
-v0.1.4
+v0.1.5
 
-Add LightingMask
-
-2022/06/12
+Add Emission
+2022/06/14
