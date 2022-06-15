@@ -1,6 +1,8 @@
 SkadiShader
 
-v0.1.8
+v0.1.9
 
-Add BlendMode
+Update GUI
+Add UVScroll
+Add EmissionFlicker
 2022/06/14

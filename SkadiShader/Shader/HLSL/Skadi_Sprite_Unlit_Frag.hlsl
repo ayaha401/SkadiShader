@@ -32,6 +32,7 @@ float4 frag (v2f i) : SV_Target
     {
         const float emissive = SAMPLE_TEXTURE2D(_OETex, sampler_MainTex, i.uv).g;
         emissionCol = mainCol * emissive * _EmissionPower;
+        emissionCol *= FlickerWave(_Flicker, _Frequency);
     }
 
     // Add Emission

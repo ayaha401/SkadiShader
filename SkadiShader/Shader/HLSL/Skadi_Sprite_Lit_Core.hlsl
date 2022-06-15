@@ -4,6 +4,7 @@
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/LightingUtility.hlsl"
 #include "../Shader/HLSL/Skadi_Macro.hlsl"
+#include "../Shader/HLSL/Skadi_Function.hlsl"
 
 TEXTURE2D(_MainTex);   uniform float4 _MainTex_ST;
 TEXTURE2D(_LightingMask);
@@ -11,9 +12,16 @@ TEXTURE2D(_OETex);
 
 SamplerState sampler_MainTex;
 
+// UVScroll
+uniform int _UseUVScroll;
+uniform float _UVScroll_X;
+uniform float _UVScroll_Y;
+
 // Emission
 uniform int _UseEmission;
 uniform float _EmissionPower;
+uniform int _Flicker;
+uniform float _Frequency;
 
 // Fill
 uniform int _BlendMode;
@@ -48,10 +56,11 @@ struct v2f
     float4 color : COLOR;
     float2 uv : TEXCOORD0;
     float2 lightingUV : TEXCOORD1;
-
     #if defined(DEBUG_DISPLAY)
         float3  positionWS  : TEXCOORD2;
     #endif
+
+    float2 lightingMaskUV : TEXCOORD3;
     UNITY_VERTEX_OUTPUT_STEREO
 };
 

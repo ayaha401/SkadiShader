@@ -3,6 +3,7 @@
 
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 #include "../Shader/HLSL/Skadi_Macro.hlsl"
+#include "../Shader/HLSL/Skadi_Function.hlsl"
 #if defined(DEBUG_DISPLAY)
     #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/InputData2D.hlsl"
     #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/SurfaceData2D.hlsl"
@@ -14,9 +15,16 @@ TEXTURE2D(_OETex);
 
 SamplerState sampler_MainTex;
 
+// UVScroll
+uniform int _UseUVScroll;
+uniform float _UVScroll_X;
+uniform float _UVScroll_Y;
+
 // Emission
 uniform int _UseEmission;
 uniform float _EmissionPower;
+uniform int _Flicker;
+uniform float _Frequency;
 
 // Fill
 uniform int _BlendMode;

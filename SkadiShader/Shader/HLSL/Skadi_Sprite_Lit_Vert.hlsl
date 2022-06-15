@@ -14,6 +14,13 @@ v2f vert (appdata v)
     #endif
 
     o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+    o.lightingMaskUV = o.uv;
+
+    // UVScroll
+    if(_UseUVScroll)
+    {
+        o.uv.xy += float2(_UVScroll_X, _UVScroll_Y) * _Time.y;
+    }
 
     o.lightingUV = half2(ComputeScreenPos(o.positionCS / o.positionCS.w).xy);
     o.color = v.color;

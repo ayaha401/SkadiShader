@@ -2,13 +2,29 @@ Shader "Skadi/Skadi_Sprite_Unlit"
 {
     Properties
     {
+        // Main
         _MainTex ("Texture", 2D) = "white" {}
+
+        // UVScroll
+        [Toggle]_UseUVScroll("Use UV Scroll", int) = 0
+        _UVScroll_X("UV Scroll X",Range(-3.0,3.0)) = 0.0
+        _UVScroll_Y("UV Scroll Y",Range(-3.0,3.0)) = 0.0
+
+        // OE
         _OETex ("OETexture",2D) = "black" {}
+
+        // Outline
         [Toggle]_UseOutline ("Use Outline", int) = 0
         _OutlineColor ("OutlineColor",Color) = (1.0,1.0,1.0,1.0)
+
+        // Emission
         [Toggle]_UseEmission ("Use Emissin", int) = 0
         _EmissionPower ("Emission Power", float) = 200
-        [Enum(Multi, 0, Fill, 1)]_BlendMode ("Blend Mode", int) = 0
+        [Enum(LINE,0, SIN,1, SAW,2, TRIANGLE,3, SQUARE,4)]_Flicker ("Emission Flicker", int) = 0
+        _Frequency ("Frequency", float) = 1.0
+
+        // BlendMode
+        [Enum(Multi,0, Fill,1)]_BlendMode ("Blend Mode", int) = 0
     }
 
     SubShader

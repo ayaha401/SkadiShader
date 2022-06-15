@@ -6,7 +6,7 @@
 float4 frag (v2f i) : SV_Target
 {
     const float4 mainCol = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
-    const float4 mask = SAMPLE_TEXTURE2D(_LightingMask, sampler_MainTex, i.uv);
+    const float4 mask = SAMPLE_TEXTURE2D(_LightingMask, sampler_MainTex, i.lightingMaskUV);
     SurfaceData2D surfaceData;
     InputData2D inputData;
 
@@ -26,6 +26,7 @@ float4 frag (v2f i) : SV_Target
     {
         const float emissive = SAMPLE_TEXTURE2D(_OETex, sampler_MainTex, i.uv).g;
         emissionCol = mainCol * emissive * _EmissionPower;
+        emissionCol *= FlickerWave(_Flicker, _Frequency);
     }
     
     // Add Emission
