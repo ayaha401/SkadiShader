@@ -6,6 +6,10 @@ Unity 2021.3.41f1 (URP)
 
 # 更新履歴
 ## v.0.1.n 
+#### v.0.1.9
+* カスタムGUI追加
+* UVScrollを追加
+* EmissionFlickerを追加
 #### v.0.1.8
 * BlendMode追加
 #### v.0.1.7
