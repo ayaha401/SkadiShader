@@ -29,3 +29,6 @@ Unity 2021.3.41f1 (URP)
 #### v.0.1.0
 * Light2Dに対応
 * アウトライン機能を実装
+
+# ドキュメント
+[使い方](https://github.com/ayaha401/SkadiShader/blob/main/Document/manual.md)
