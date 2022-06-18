@@ -15,7 +15,9 @@
 |名前|説明|
 |---|---|
 |Skadi_Sprite_Lit|ライティングの影響を受けます。|
+|Skadi_Sprite_Lit_Outline|ライティングの影響を受けます。<br>アウトラインの設定が可能です。|
 |Skadi_Sprite_Unlit|ライティングの影響を受けないです。|
+|Skadi_Sprite_Unlit_Outline|ライティングの影響を受けないです。<br>アウトラインの設定が可能です。|
 
 # Info
 |名前|説明|

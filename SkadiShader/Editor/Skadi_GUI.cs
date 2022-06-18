@@ -6,7 +6,7 @@ using System;
 
 public class Skadi_GUI : ShaderGUI
 {
-    private string version = "0.1.9";
+    private string version = "0.1.10";
 
     // Texture
     private MaterialProperty MainTex;
@@ -185,6 +185,7 @@ public class Skadi_GUI : ShaderGUI
 
     private void Information()
     {
+        CustomUI.Title("Info");
         using (new EditorGUILayout.VerticalScope())
         {
             using (new EditorGUILayout.HorizontalScope())

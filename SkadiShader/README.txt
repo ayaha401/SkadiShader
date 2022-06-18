@@ -1,8 +1,6 @@
 SkadiShader
 
-v0.1.9
+v0.1.10
 
-Update GUI
-Add UVScroll
-Add EmissionFlicker
+OutlineがないShaderとあるShaderで分けた
 2022/06/14

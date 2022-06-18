@@ -1,4 +1,4 @@
-Shader "Skadi/Skadi_Sprite_Lit"
+Shader "Skadi/Skadi_Sprite_Lit_Outline"
 {
     Properties
     {
@@ -15,6 +15,10 @@ Shader "Skadi/Skadi_Sprite_Lit"
 
         // OE
         _OETex ("OETexture",2D) = "black" {}
+
+        // Outline
+        [Toggle]_UseOutline ("Use Outline", int) = 0
+        _OutlineColor ("OutlineColor",Color) = (1.0,1.0,1.0,1.0)
 
         // Emission
         [Toggle]_UseEmission ("Use Emissin", int) = 0
@@ -68,8 +72,27 @@ Shader "Skadi/Skadi_Sprite_Lit"
 
             ENDHLSL
         }
-    }
 
+        Pass
+        {
+            Name "Unlit_Outline"
+            Tags
+            {
+                "LightMode" = "SRPDefaultUnlit"
+            }
+
+            HLSLPROGRAM
+
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma multi_compile _ DEBUG_DISPLAY
+
+            #include "../Shader/HLSL/Skadi_Unlit_Outline.hlsl"
+
+            ENDHLSL
+        }
+    }
+    
     Fallback "Sprites/Default"
     CustomEditor "Skadi_GUI"
 }
