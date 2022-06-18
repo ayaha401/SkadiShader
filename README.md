@@ -6,6 +6,10 @@ Unity 2021.3.41f1 (URP)
 
 # 更新履歴
 ## v.0.1.n 
+#### v.0.1.10
+* Skadi_Sprite_Lit_Outlineを追加
+* Skadi_Sprite_Unlit_Outlineを追加
+* アウトラインを使えるシェーダーと使えないシェーダーで分けた
 #### v.0.1.9
 * カスタムGUI追加
 * UVScrollを追加
