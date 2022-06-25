@@ -71,5 +71,5 @@ Shader "Skadi/Skadi_Sprite_Lit"
     }
 
     Fallback "Sprites/Default"
-    CustomEditor "Skadi_GUI"
+    CustomEditor "AyahaShader.Skadi.Skadi_GUI"
 }
