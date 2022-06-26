@@ -8,7 +8,7 @@ namespace AyahaShader.Skadi
 {
     public class Skadi_GUI : ShaderGUI
     {
-        private string version = "0.1.11";
+        private string version = "0.1.12";
 
         // Texture
         private MaterialProperty MainTex;
