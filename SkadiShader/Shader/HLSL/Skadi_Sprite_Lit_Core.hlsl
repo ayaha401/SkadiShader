@@ -3,8 +3,8 @@
 
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/LightingUtility.hlsl"
-#include "../Shader/HLSL/Skadi_Macro.hlsl"
-#include "../Shader/HLSL/Skadi_Function.hlsl"
+#include "../HLSL/Skadi_Macro.hlsl"
+#include "../HLSL/Skadi_Function.hlsl"
 
 TEXTURE2D(_MainTex);   uniform float4 _MainTex_ST;
 TEXTURE2D(_LightingMask);

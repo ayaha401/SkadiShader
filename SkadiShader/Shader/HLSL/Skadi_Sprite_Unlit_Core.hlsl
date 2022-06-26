@@ -2,8 +2,8 @@
 #define SKADI_SPRITE_UNLIT_CORE
 
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-#include "../Shader/HLSL/Skadi_Macro.hlsl"
-#include "../Shader/HLSL/Skadi_Function.hlsl"
+#include "../HLSL/Skadi_Macro.hlsl"
+#include "../HLSL/Skadi_Function.hlsl"
 #if defined(DEBUG_DISPLAY)
     #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/InputData2D.hlsl"
     #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/SurfaceData2D.hlsl"

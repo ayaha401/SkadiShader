@@ -38,7 +38,7 @@ Shader "Skadi/Skadi_Sprite_Lit"
 
             HLSLPROGRAM
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-            #include "../Shader/HLSL/Skadi_Macro.hlsl"
+            #include "../HLSL/Skadi_Macro.hlsl"
 
             #pragma vertex vert
             #pragma fragment frag
@@ -148,7 +148,7 @@ Shader "Skadi/Skadi_Sprite_Lit"
             #pragma fragment frag
             #pragma multi_compile _ DEBUG_DISPLAY
 
-            #include "../Shader/HLSL/Skadi_Unlit_Outline.hlsl"
+            #include "../HLSL/Skadi_Unlit_Outline.hlsl"
 
             ENDHLSL
         }

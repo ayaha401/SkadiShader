@@ -56,7 +56,7 @@ Shader "Skadi/Skadi_Sprite_Unlit_Outline"
 
             #pragma multi_compile _ DEBUG_DISPLAY
 
-            #include "../Shader/HLSL/Skadi_Sprite_Unlit_Core.hlsl"
+            #include "../HLSL/Skadi_Sprite_Unlit_Core.hlsl"
 
             ENDHLSL
         }
@@ -75,12 +75,12 @@ Shader "Skadi/Skadi_Sprite_Unlit_Outline"
             #pragma fragment frag
             #pragma multi_compile _ DEBUG_DISPLAY
 
-            #include "../Shader/HLSL/Skadi_Unlit_Outline.hlsl"
+            #include "../HLSL/Skadi_Unlit_Outline.hlsl"
 
             ENDHLSL
         }
     }
 
     Fallback "Sprites/Default"
-    CustomEditor "AyahaShader.Skadi.Skadi_GUI"
+    CustomEditor "AyahaShader.Skadi.SkadiSprite_GUI"
 }

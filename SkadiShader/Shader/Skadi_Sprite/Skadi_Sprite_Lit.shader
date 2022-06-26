@@ -64,12 +64,12 @@ Shader "Skadi/Skadi_Sprite_Lit"
             #pragma multi_compile __ USE_SHAPE_LIGHT_TYPE_3
             #pragma multi_compile _ DEBUG_DISPLAY
 
-            #include "../Shader/HLSL/Skadi_Sprite_Lit_Core.hlsl"
+            #include "../HLSL/Skadi_Sprite_Lit_Core.hlsl"
 
             ENDHLSL
         }
     }
 
     Fallback "Sprites/Default"
-    CustomEditor "AyahaShader.Skadi.Skadi_GUI"
+    CustomEditor "AyahaShader.Skadi.SkadiSprite_GUI"
 }
