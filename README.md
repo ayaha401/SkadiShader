@@ -40,3 +40,4 @@ Unity 2021.3.41f1 (URP)
 
 # ドキュメント
 [使い方](https://github.com/ayaha401/SkadiShader/blob/main/Document/manual.md)
+[skadiSpriteShaderProvider](https://github.com/ayaha401/SkadiShader/blob/main/Document/skadiSpriteShaderProvider.md)
