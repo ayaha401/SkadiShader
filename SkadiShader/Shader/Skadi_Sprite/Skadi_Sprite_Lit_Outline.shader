@@ -68,7 +68,7 @@ Shader "Skadi/Skadi_Sprite_Lit_Outline"
             #pragma multi_compile __ USE_SHAPE_LIGHT_TYPE_3
             #pragma multi_compile _ DEBUG_DISPLAY
 
-            #include "../HLSL/Skadi_Sprite_Lit_Core.hlsl"
+            #include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Sprite_Lit_Core.hlsl"
             ENDHLSL
         }
 
@@ -86,7 +86,7 @@ Shader "Skadi/Skadi_Sprite_Lit_Outline"
             #pragma fragment frag
             #pragma multi_compile _ DEBUG_DISPLAY
 
-            #include "../HLSL/Skadi_Unlit_Outline.hlsl"
+            #include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Unlit_Outline.hlsl"
 
             ENDHLSL
         }

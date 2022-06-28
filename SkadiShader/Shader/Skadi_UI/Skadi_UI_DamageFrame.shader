@@ -31,8 +31,8 @@ Shader "Skadi/UI/Skadi_UI_DamageFrame"
             #pragma multi_compile_fog
 
             #include "UnityCG.cginc"
-            #include "../HLSL/Skadi_Macro.hlsl"
-            #include "../HLSL/Skadi_Function.hlsl"
+            #include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Macro.hlsl"
+            #include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Function.hlsl"
 
             struct appdata
             {

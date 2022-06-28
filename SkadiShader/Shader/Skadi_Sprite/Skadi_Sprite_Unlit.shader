@@ -52,7 +52,7 @@ Shader "Skadi/Skadi_Sprite_Unlit"
 
             #pragma multi_compile _ DEBUG_DISPLAY
 
-            #include "../HLSL/Skadi_Sprite_Unlit_Core.hlsl"
+            #include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Sprite_Unlit_Core.hlsl"
 
             ENDHLSL
         }

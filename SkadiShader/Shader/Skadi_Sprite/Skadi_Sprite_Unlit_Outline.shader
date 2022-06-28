@@ -56,7 +56,7 @@ Shader "Skadi/Skadi_Sprite_Unlit_Outline"
 
             #pragma multi_compile _ DEBUG_DISPLAY
 
-            #include "../HLSL/Skadi_Sprite_Unlit_Core.hlsl"
+            #include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Sprite_Unlit_Core.hlsl"
 
             ENDHLSL
         }
@@ -75,7 +75,7 @@ Shader "Skadi/Skadi_Sprite_Unlit_Outline"
             #pragma fragment frag
             #pragma multi_compile _ DEBUG_DISPLAY
 
-            #include "../HLSL/Skadi_Unlit_Outline.hlsl"
+            #include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Unlit_Outline.hlsl"
 
             ENDHLSL
         }

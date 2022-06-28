@@ -64,7 +64,7 @@ Shader "Skadi/Skadi_Sprite_Lit"
             #pragma multi_compile __ USE_SHAPE_LIGHT_TYPE_3
             #pragma multi_compile _ DEBUG_DISPLAY
 
-            #include "../HLSL/Skadi_Sprite_Lit_Core.hlsl"
+            #include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Sprite_Lit_Core.hlsl"
 
             ENDHLSL
         }

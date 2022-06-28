@@ -2,7 +2,8 @@
 #define SKADI_UNLIT_OUTLINE
 
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-#include "../HLSL/Skadi_Macro.hlsl"
+#include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Macro.hlsl"
+#include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Function.hlsl"
 
 TEXTURE2D(_OETex);    float4 _OETex_ST;
 SamplerState sampler_OETex;

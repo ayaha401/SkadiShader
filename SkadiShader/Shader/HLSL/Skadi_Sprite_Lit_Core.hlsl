@@ -3,8 +3,8 @@
 
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/LightingUtility.hlsl"
-#include "../HLSL/Skadi_Macro.hlsl"
-#include "../HLSL/Skadi_Function.hlsl"
+#include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Macro.hlsl"
+#include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Function.hlsl"
 
 TEXTURE2D(_MainTex);   uniform float4 _MainTex_ST;
 TEXTURE2D(_LightingMask);
@@ -64,7 +64,7 @@ struct v2f
     UNITY_VERTEX_OUTPUT_STEREO
 };
 
-#include "../HLSL/Skadi_Sprite_Lit_Vert.hlsl"
-#include "../HLSL/Skadi_Sprite_Lit_Frag.hlsl"
+#include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Sprite_Lit_Vert.hlsl"
+#include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Sprite_Lit_Frag.hlsl"
 
 #endif
