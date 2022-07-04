@@ -1,0 +1,12 @@
+namespace AyahaShader.Skadi
+{
+    /// <summary>
+    /// êFÇÃçáê¨ÉÇÅ[Éh
+    /// </summary>
+    public enum ColorBlendMode
+    {
+        Multi = 0,
+        Fill = 1,
+    }
+}
+

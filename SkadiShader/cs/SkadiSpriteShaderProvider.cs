@@ -5,27 +5,6 @@ using System;
 
 namespace AyahaShader.Skadi
 {
-    public enum ColorBlendMode
-    {
-        Multi = 0,
-        Fill = 1,
-    }
-
-    public enum FlickerMode
-    {
-        Line = 0,
-        Sin = 1,
-        Saw = 2,
-        Triangle = 3,
-        Square = 4,
-    }
-
-    public enum ErrorKinds
-    {
-        NotFindProp = 1,
-
-    }
-    
     public static class SkadiSpriteShaderProvider
     {
         /// <summary>
@@ -74,6 +53,19 @@ namespace AyahaShader.Skadi
         }
 
         /// <summary>
+        /// アウトラインを使用しているか調べます。
+        /// </summary>
+        /// <param name="renderer">レンダラー</param>
+        public static bool GetUseOutlineProp(SpriteRenderer renderer)
+        {
+            Material mat = renderer.material;
+
+            if (!mat.HasProperty("_UseOutline")) { NotFindProperty("_UseOutline"); return false; }
+
+            return Convert.ToBoolean(mat.GetInt("_UseOutline"));
+        }
+
+        /// <summary>
         /// エミッションを有効、無効化します。
         /// </summary>
         /// <param name="renderer">レンダラー</param>
@@ -85,6 +77,19 @@ namespace AyahaShader.Skadi
             if (!mat.HasProperty("_UseEmission")) { NotFindProperty("_UseEmission"); return; }
 
             mat.SetInt("_UseEmission", Convert.ToInt32(isEnable));
+        }
+
+        /// <summary>
+        /// エミッションを使用しているか調べます。
+        /// </summary>
+        /// <param name="renderer">レンダラー</param>
+        public static bool GetUseEmission(SpriteRenderer renderer)
+        {
+            Material mat = renderer.material;
+
+            if(!mat.HasProperty("_UseEmission")) { NotFindProperty("_UseEmission"); return false; }
+
+            return Convert.ToBoolean(mat.GetInt("_UseEmission"));
         }
 
         /// <summary>
@@ -141,6 +146,19 @@ namespace AyahaShader.Skadi
             if (!mat.HasProperty("_UseUVScroll")) { NotFindProperty("_UseUVScroll"); return; }
 
             mat.SetInt("_UseUVScroll", Convert.ToInt32(isEnable));
+        }
+
+        /// <summary>
+        /// UVスクロールを使用しているか調べます。
+        /// </summary>
+        /// <param name="renderer">レンダラー</param>
+        public static bool GetUseUVScroll(SpriteRenderer renderer)
+        {
+            Material mat = renderer.material;
+
+            if (!mat.HasProperty("_UseUVScroll")) { NotFindProperty("_UseUVScroll"); return false; }
+
+            return Convert.ToBoolean(mat.GetInt("_UseUVScroll"));
         }
 
         /// <summary>
