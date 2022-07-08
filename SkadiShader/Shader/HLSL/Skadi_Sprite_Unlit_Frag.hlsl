@@ -3,7 +3,7 @@
 
 float4 frag (v2f i) : SV_Target
 {
-    const float4 mainCol = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv) * i.color;
+    const float4 mainCol = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
     #if defined(DEBUG_DISPLAY)
         SurfaceData2D surfaceData;
         InputData2D inputData;
@@ -22,7 +22,7 @@ float4 frag (v2f i) : SV_Target
     // ColorBlend
     float3 blendCol = mainCol.rgb;
     if(_BlendMode == 0) blendCol = blendCol * i.color.rgb;
-    if(_BlendMode == 1) blendCol = lerp(mainCol.rgb, i.color.rgb, 1.);
+    if(_BlendMode == 1) blendCol = i.color.rgb;
 
     float4 lastCol = float4(blendCol, mainCol.a);
     
