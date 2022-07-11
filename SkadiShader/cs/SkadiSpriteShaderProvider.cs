@@ -8,11 +8,24 @@ namespace AyahaShader.Skadi
     public static class SkadiSpriteShaderProvider
     {
         /// <summary>
-        /// ƒ}ƒeƒŠƒAƒ‹‚ÌF‚ğ•Ï‚¦‚Ü‚·BSpriteRenderer.Color‚Æ‚Ù‚Ú“¯‹`
+        /// SpriteRendererã®Colorã®ã‚¢ãƒ«ãƒ•ã‚¡å€¤ã‚’å¤‰æ›´ã—ã¾ã™ã€‚
         /// </summary>
-        /// <param name="renderer">ƒŒƒ“ƒ_ƒ‰[</param>
-        /// <param name="col">‡¬‚µ‚½‚¢F</param>
-        /// <param name="blendMode">Multi : æZ, Fill : “h‚è‚Â‚Ô‚µ
+        /// <param name="renderer">ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼</param>
+        /// <param name="alpha">ã‚¢ãƒ«ãƒ•ã‚¡å€¤</param>
+        /// <param name="blendMode">Multi : ä¹—ç®—, Fill : å¡—ã‚Šã¤ã¶ã—</param>
+        public static void SetSpriteRendererColorAlpha(SpriteRenderer renderer, float alpha, ColorBlendMode blendMode = ColorBlendMode.Multi)
+        {
+            Color col = renderer.color;
+            col.a = alpha;
+            renderer.color = col;
+        }
+        
+        /// <summary>
+        /// ãƒãƒ†ãƒªã‚¢ãƒ«ã®è‰²ã‚’å¤‰ãˆã¾ã™ã€‚SpriteRenderer.Colorã¨ã»ã¼åŒç¾©
+        /// </summary>
+        /// <param name="renderer">ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼</param>
+        /// <param name="col">åˆæˆã—ãŸã„è‰²</param>
+        /// <param name="blendMode">Multi : ä¹—ç®—, Fill : å¡—ã‚Šã¤ã¶ã—
         /// </param>
         public static void SetColor(SpriteRenderer renderer, Color col, ColorBlendMode blendMode = ColorBlendMode.Multi)
         {
@@ -25,10 +38,10 @@ namespace AyahaShader.Skadi
         }
 
         /// <summary>
-        /// ƒAƒEƒgƒ‰ƒCƒ“‚ÌƒJƒ‰[‚ğ•ÏX‚µ‚Ü‚·B
+        /// ã‚¢ã‚¦ãƒˆãƒ©ã‚¤ãƒ³ã®ã‚«ãƒ©ãƒ¼ã‚’å¤‰æ›´ã—ã¾ã™ã€‚
         /// </summary>
-        /// <param name="renderer">ƒŒƒ“ƒ_ƒ‰[</param>
-        /// <param name="col">•ÏX‚µ‚½‚¢F</param>
+        /// <param name="renderer">ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼</param>
+        /// <param name="col">å¤‰æ›´ã—ãŸã„è‰²</param>
         public static void SetOutlineColor(SpriteRenderer renderer, Color col)
         {
             Material mat = renderer.material;
@@ -39,10 +52,10 @@ namespace AyahaShader.Skadi
         }
 
         /// <summary>
-        /// ƒAƒEƒgƒ‰ƒCƒ“‚ğ—LŒøA–³Œø‰»‚µ‚Ü‚·B
+        /// ã‚¢ã‚¦ãƒˆãƒ©ã‚¤ãƒ³ã‚’æœ‰åŠ¹ã€ç„¡åŠ¹åŒ–ã—ã¾ã™ã€‚
         /// </summary>
-        /// <param name="renderer">ƒŒƒ“ƒ_ƒ‰[</param>
-        /// <param name="isEnable">ƒAƒEƒgƒ‰ƒCƒ“‚Ì—LŒøA–³Œø‰»</param>
+        /// <param name="renderer">ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼</param>
+        /// <param name="isEnable">ã‚¢ã‚¦ãƒˆãƒ©ã‚¤ãƒ³ã®æœ‰åŠ¹ã€ç„¡åŠ¹åŒ–</param>
         public static void EnableOutline(SpriteRenderer renderer, bool isEnable)
         {
             Material mat = renderer.material;
@@ -53,9 +66,9 @@ namespace AyahaShader.Skadi
         }
 
         /// <summary>
-        /// ƒAƒEƒgƒ‰ƒCƒ“‚ğg—p‚µ‚Ä‚¢‚é‚©’²‚×‚Ü‚·B
+        /// ã‚¢ã‚¦ãƒˆãƒ©ã‚¤ãƒ³ã‚’ä½¿ç”¨ã—ã¦ã„ã‚‹ã‹èª¿ã¹ã¾ã™ã€‚
         /// </summary>
-        /// <param name="renderer">ƒŒƒ“ƒ_ƒ‰[</param>
+        /// <param name="renderer">ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼</param>
         public static bool GetUseOutlineProp(SpriteRenderer renderer)
         {
             Material mat = renderer.material;
@@ -66,10 +79,10 @@ namespace AyahaShader.Skadi
         }
 
         /// <summary>
-        /// ƒGƒ~ƒbƒVƒ‡ƒ“‚ğ—LŒøA–³Œø‰»‚µ‚Ü‚·B
+        /// ã‚¨ãƒŸãƒƒã‚·ãƒ§ãƒ³ã‚’æœ‰åŠ¹ã€ç„¡åŠ¹åŒ–ã—ã¾ã™ã€‚
         /// </summary>
-        /// <param name="renderer">ƒŒƒ“ƒ_ƒ‰[</param>
-        /// <param name="isEnable">ƒGƒ~ƒbƒVƒ‡ƒ“‚Ì—LŒøA–³Œø‰»</param>
+        /// <param name="renderer">ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼</param>
+        /// <param name="isEnable">ã‚¨ãƒŸãƒƒã‚·ãƒ§ãƒ³ã®æœ‰åŠ¹ã€ç„¡åŠ¹åŒ–</param>
         public static void EnableEmission(SpriteRenderer renderer, bool isEnable)
         {
             Material mat = renderer.material;
@@ -80,9 +93,9 @@ namespace AyahaShader.Skadi
         }
 
         /// <summary>
-        /// ƒGƒ~ƒbƒVƒ‡ƒ“‚ğg—p‚µ‚Ä‚¢‚é‚©’²‚×‚Ü‚·B
+        /// ã‚¨ãƒŸãƒƒã‚·ãƒ§ãƒ³ã‚’ä½¿ç”¨ã—ã¦ã„ã‚‹ã‹èª¿ã¹ã¾ã™ã€‚
         /// </summary>
-        /// <param name="renderer">ƒŒƒ“ƒ_ƒ‰[</param>
+        /// <param name="renderer">ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼</param>
         public static bool GetUseEmission(SpriteRenderer renderer)
         {
             Material mat = renderer.material;
@@ -93,10 +106,10 @@ namespace AyahaShader.Skadi
         }
 
         /// <summary>
-        /// ƒGƒ~ƒbƒVƒ‡ƒ“‹­“x‚ğİ’è‚µ‚Ü‚·B
+        /// ã‚¨ãƒŸãƒƒã‚·ãƒ§ãƒ³å¼·åº¦ã‚’è¨­å®šã—ã¾ã™ã€‚
         /// </summary>
-        /// <param name="renderer">ƒŒƒ“ƒ_ƒ‰[</param>
-        /// <param name="power">ƒGƒ~ƒbƒVƒ‡ƒ“‹­“x</param>
+        /// <param name="renderer">ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼</param>
+        /// <param name="power">ã‚¨ãƒŸãƒƒã‚·ãƒ§ãƒ³å¼·åº¦</param>
         public static void SetEmissionPower(SpriteRenderer renderer, float power)
         {
             Material mat = renderer.material;
@@ -107,10 +120,10 @@ namespace AyahaShader.Skadi
         }
 
         /// <summary>
-        /// ƒGƒ~ƒbƒVƒ‡ƒ“‚Ì“_–Åƒ‚[ƒh‚ğØ‚è‘Ö‚¦‚Ü‚·B
+        /// ã‚¨ãƒŸãƒƒã‚·ãƒ§ãƒ³ã®ç‚¹æ»…ãƒ¢ãƒ¼ãƒ‰ã‚’åˆ‡ã‚Šæ›¿ãˆã¾ã™ã€‚
         /// </summary>
-        /// <param name="renderer">ƒŒƒ“ƒ_ƒ‰[</param>
-        /// <param name="mode">“_–Åƒ‚[ƒh</param>
+        /// <param name="renderer">ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼</param>
+        /// <param name="mode">ç‚¹æ»…ãƒ¢ãƒ¼ãƒ‰</param>
         public static void SetFlickerMode(SpriteRenderer renderer, FlickerMode mode)
         {
             Material mat = renderer.material;
@@ -121,10 +134,10 @@ namespace AyahaShader.Skadi
         }
 
         /// <summary>
-        /// ˆê•bŠÔ‚É“_–Å‚·‚é‰ñ”‚ğ•Ï‚¦‚Ü‚·B
+        /// ä¸€ç§’é–“ã«ç‚¹æ»…ã™ã‚‹å›æ•°ã‚’å¤‰ãˆã¾ã™ã€‚
         /// </summary>
-        /// <param name="renderer">ƒŒƒ“ƒ_ƒ‰[</param>
-        /// <param name="frequency">U“®”</param>
+        /// <param name="renderer">ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼</param>
+        /// <param name="frequency">æŒ¯å‹•æ•°</param>
         public static void SetFrequency(SpriteRenderer renderer, float frequency)
         {
             Material mat = renderer.material;
@@ -135,10 +148,10 @@ namespace AyahaShader.Skadi
         }
 
         /// <summary>
-        /// UVƒXƒNƒ[ƒ‹‚ğ—LŒøA–³Œø‰»‚µ‚Ü‚·B
+        /// UVã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã‚’æœ‰åŠ¹ã€ç„¡åŠ¹åŒ–ã—ã¾ã™ã€‚
         /// </summary>
-        /// <param name="renderer">ƒŒƒ“ƒ_ƒ‰[</param>
-        /// <param name="isEnable">UVƒXƒNƒ[ƒ‹‚Ì—LŒøA–³Œø‰»</param>
+        /// <param name="renderer">ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼</param>
+        /// <param name="isEnable">UVã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã®æœ‰åŠ¹ã€ç„¡åŠ¹åŒ–</param>
         public static void EnableUVScroll(SpriteRenderer renderer, bool isEnable)
         {
             Material mat = renderer.material;
@@ -149,9 +162,9 @@ namespace AyahaShader.Skadi
         }
 
         /// <summary>
-        /// UVƒXƒNƒ[ƒ‹‚ğg—p‚µ‚Ä‚¢‚é‚©’²‚×‚Ü‚·B
+        /// UVã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã‚’ä½¿ç”¨ã—ã¦ã„ã‚‹ã‹èª¿ã¹ã¾ã™ã€‚
         /// </summary>
-        /// <param name="renderer">ƒŒƒ“ƒ_ƒ‰[</param>
+        /// <param name="renderer">ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼</param>
         public static bool GetUseUVScroll(SpriteRenderer renderer)
         {
             Material mat = renderer.material;
@@ -162,10 +175,10 @@ namespace AyahaShader.Skadi
         }
 
         /// <summary>
-        /// UVƒXƒNƒ[ƒ‹‚Ì‘¬“x‚ğİ’è‚µ‚Ü‚·B
+        /// UVã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã®é€Ÿåº¦ã‚’è¨­å®šã—ã¾ã™ã€‚
         /// </summary>
-        /// <param name="renderer">ƒŒƒ“ƒ_ƒ‰[</param>
-        /// <param name="vector2">XAY•ûŒü‚Ì‘¬“x</param>
+        /// <param name="renderer">ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼</param>
+        /// <param name="vector2">Xã€Yæ–¹å‘ã®é€Ÿåº¦</param>
         public static void SetUVScrollSpeed(SpriteRenderer renderer, Vector2 vector2)
         {
             Material mat = renderer.material;
@@ -179,7 +192,7 @@ namespace AyahaShader.Skadi
 
 
         /// <summary>
-        /// ƒvƒƒpƒeƒB‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½ê‡‚ÉƒGƒ‰[‚ğo‚µ‚Ü‚·B
+        /// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸå ´åˆã«ã‚¨ãƒ©ãƒ¼ã‚’å‡ºã—ã¾ã™ã€‚
         /// </summary>
         private static void NotFindProperty(string propertyName)
         {
