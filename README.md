@@ -1,5 +1,6 @@
 # SkadiShader
-URPでLight2D環境下の2Dゲーム用シェーダー
+URPでLight2D環境下の2Dゲーム用シェーダー<br>
+AyahaShader > SkadiShader
 
 # 動作確認済みバージョン
 Unity 2021.3.41f1 (URP)
