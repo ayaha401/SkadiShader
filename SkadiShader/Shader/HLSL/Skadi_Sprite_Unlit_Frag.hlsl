@@ -24,7 +24,7 @@ float4 frag (v2f i) : SV_Target
     if(_BlendMode == 0) blendCol = blendCol * i.color.rgb;
     if(_BlendMode == 1) blendCol = i.color.rgb;
 
-    float4 lastCol = float4(blendCol, mainCol.a);
+    float4 lastCol = float4(blendCol, mainCol.a * i.color.a);
     
     // Emission
     float3 emissionCol = 0.;

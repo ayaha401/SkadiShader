@@ -8,7 +8,7 @@ namespace AyahaShader.Skadi
     public static class SkadiSpriteShaderProvider
     {
         /// <summary>
-        /// マテリアルの色を変えるます。SpriteRenderer.Colorとほぼ同義
+        /// マテリアルの色を変えます。SpriteRenderer.Colorとほぼ同義
         /// </summary>
         /// <param name="renderer">レンダラー</param>
         /// <param name="col">合成したい色</param>

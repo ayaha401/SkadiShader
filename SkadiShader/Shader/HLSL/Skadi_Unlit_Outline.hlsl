@@ -9,7 +9,7 @@ TEXTURE2D(_OETex);    float4 _OETex_ST;
 SamplerState sampler_OETex;
 
 uniform int _UseOutline;
-uniform float3 _OutlineColor;
+uniform float4 _OutlineColor;
 
 struct appdata
 {
@@ -48,7 +48,7 @@ v2f vert (appdata v)
     
     o.uv = TRANSFORM_TEX(v.uv, _OETex);
 
-    o.color = float4(_OutlineColor, v.color.a);
+    o.color = _OutlineColor;
     return o;
 }
 
