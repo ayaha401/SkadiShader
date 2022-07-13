@@ -13,7 +13,7 @@ namespace AyahaShader.Skadi
         /// <param name="renderer">レンダラー</param>
         /// <param name="alpha">アルファ値</param>
         /// <param name="blendMode">Multi : 乗算, Fill : 塗りつぶし</param>
-        public static void SetSpriteRendererColorAlpha(SpriteRenderer renderer, float alpha, ColorBlendMode blendMode = ColorBlendMode.Multi)
+        public static void SetColorAlpha(SpriteRenderer renderer, float alpha, ColorBlendMode blendMode = ColorBlendMode.Multi)
         {
             Color col = renderer.color;
             col.a = alpha;
