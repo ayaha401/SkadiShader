@@ -123,16 +123,18 @@ namespace AyahaShader.Skadi
                         GUILayout.Label("Flicker");
                         selectFlicker = material.GetInt("_Flicker");
                         Texture[] textures = new Texture[5];
-                        textures[0] = AssetDatabase.LoadAssetAtPath<Texture>("Assets/AyahaShader/SkadiShader/GUIImage/Line.png");
-                        textures[1] = AssetDatabase.LoadAssetAtPath<Texture>("Assets/AyahaShader/SkadiShader/GUIImage/Sin.png");
-                        textures[2] = AssetDatabase.LoadAssetAtPath<Texture>("Assets/AyahaShader/SkadiShader/GUIImage/Saw.png");
-                        textures[3] = AssetDatabase.LoadAssetAtPath<Texture>("Assets/AyahaShader/SkadiShader/GUIImage/Triangle.png");
-                        textures[4] = AssetDatabase.LoadAssetAtPath<Texture>("Assets/AyahaShader/SkadiShader/GUIImage/Square.png");
+                        textures[(int)FlickerMode.Line] = AssetDatabase.LoadAssetAtPath<Texture>("Assets/AyahaShader/SkadiShader/GUIImage/Line.png");
+                        textures[(int)FlickerMode.Sin] = AssetDatabase.LoadAssetAtPath<Texture>("Assets/AyahaShader/SkadiShader/GUIImage/Sin.png");
+                        textures[(int)FlickerMode.Saw] = AssetDatabase.LoadAssetAtPath<Texture>("Assets/AyahaShader/SkadiShader/GUIImage/Saw.png");
+                        textures[(int)FlickerMode.Triangle] = AssetDatabase.LoadAssetAtPath<Texture>("Assets/AyahaShader/SkadiShader/GUIImage/Triangle.png");
+                        textures[(int)FlickerMode.Square] = AssetDatabase.LoadAssetAtPath<Texture>("Assets/AyahaShader/SkadiShader/GUIImage/Square.png");
                         selectFlicker = GUILayout.Toolbar(selectFlicker, textures, GUILayout.Height(30));
                         material.SetInt("_Flicker", selectFlicker);
                     
-                    
-                        materialEditor.ShaderProperty(Frequency, new GUIContent("Frequency"));
+                        if(selectFlicker != (int)FlickerMode.Line)
+                        {
+                            materialEditor.ShaderProperty(Frequency, new GUIContent("Frequency"));
+                        }
                     }
                 }
                 else
