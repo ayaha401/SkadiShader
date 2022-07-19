@@ -8,9 +8,6 @@ namespace AyahaShader.Skadi
 {
     public class SkadiDamageFrame_GUI : ShaderGUI
     {
-        // Texture 
-        private MaterialProperty MainTex;
-
         // Color
         private MaterialProperty FrameColor;
 
@@ -20,6 +17,9 @@ namespace AyahaShader.Skadi
 
         // Flicker
         private MaterialProperty Flicker;
+        private MaterialProperty Frequency;
+
+        private int selectFlicker;
 
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] Prop)
         {
@@ -31,20 +31,58 @@ namespace AyahaShader.Skadi
             GUIPartition();
 
             // èâä˙èÛë‘ÇÃGUIÇï\é¶Ç≥ÇπÇÈ
-            base.OnGUI(materialEditor, Prop);
+            //base.OnGUI(materialEditor, Prop);
 
+            SkadiCustomUI.Title("Main");
+            using (new EditorGUILayout.VerticalScope(GUI.skin.box))
+            {
+                materialEditor.ShaderProperty(FrameColor, new GUIContent("Frame Color"));
+            }
 
+            GUIPartition();
 
+            SkadiCustomUI.Title("FrameSize");
+            using (new EditorGUILayout.VerticalScope(GUI.skin.box))
+            {
+                materialEditor.ShaderProperty(SizeX, new GUIContent("SizeX"));
+                materialEditor.ShaderProperty(SizeY, new GUIContent("SizeY"));
+            }
+
+            GUIPartition();
+
+            SkadiCustomUI.Title("Flicker");
+            using (new EditorGUILayout.VerticalScope(GUI.skin.box))
+            {
+                GUILayout.Label("Flicker");
+                selectFlicker = material.GetInt("_Flicker");
+                Texture[] textures = new Texture[5];
+                textures[(int)FlickerMode.Line] = AssetDatabase.LoadAssetAtPath<Texture>("Assets/AyahaShader/SkadiShader/GUIImage/Line.png");
+                textures[(int)FlickerMode.Sin] = AssetDatabase.LoadAssetAtPath<Texture>("Assets/AyahaShader/SkadiShader/GUIImage/Sin.png");
+                textures[(int)FlickerMode.Saw] = AssetDatabase.LoadAssetAtPath<Texture>("Assets/AyahaShader/SkadiShader/GUIImage/Saw.png");
+                textures[(int)FlickerMode.Triangle] = AssetDatabase.LoadAssetAtPath<Texture>("Assets/AyahaShader/SkadiShader/GUIImage/Triangle.png");
+                textures[(int)FlickerMode.Square] = AssetDatabase.LoadAssetAtPath<Texture>("Assets/AyahaShader/SkadiShader/GUIImage/Square.png");
+                selectFlicker = GUILayout.Toolbar(selectFlicker, textures, GUILayout.Height(30));
+                material.SetInt("_Flicker", selectFlicker);
+
+                if (selectFlicker != (int)FlickerMode.Line)
+                {
+                    materialEditor.ShaderProperty(Frequency, new GUIContent("Frequency"));
+                }
+            }
         }
 
         private void FindProperties(MaterialProperty[] _Prop)
         {
-            // Texture
-            MainTex = FindProperty("_MainTex", _Prop, false);
+            // Main
             FrameColor = FindProperty("_Color", _Prop, false);
+
+            // Size
             SizeX = FindProperty("_SizeX", _Prop, false);
             SizeY = FindProperty("_SizeY", _Prop, false);
+
+            // Flicker
             Flicker = FindProperty("_Flicker", _Prop, false);
+            Frequency = FindProperty("_Frequency", _Prop, false);
         }
 
         private void GUIPartition()

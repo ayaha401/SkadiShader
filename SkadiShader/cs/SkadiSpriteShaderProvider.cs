@@ -5,6 +5,9 @@ using System;
 
 namespace AyahaShader.Skadi
 {
+    /// <summary>
+    /// SkadiShaderのSprite関係のマテリアルを調整するためのスクリプト
+    /// </summary>
     public static class SkadiSpriteShaderProvider
     {
         /// <summary>
@@ -31,7 +34,7 @@ namespace AyahaShader.Skadi
         {
             Material mat = renderer.material;
 
-            if (!mat.HasProperty("_BlendMode")) { NotFindProperty("_BlendMode"); return; }
+            if (!mat.HasProperty("_BlendMode")) { SkadiErrorDisplay.NotFindProperty("_BlendMode"); return; }
 
             renderer.color = col;
             mat.SetFloat("_BlendMode", (float)blendMode);
@@ -46,7 +49,7 @@ namespace AyahaShader.Skadi
         {
             Material mat = renderer.material;
 
-            if (!mat.HasProperty("_OutlineColor")) { NotFindProperty("_OutlineColor"); return; }
+            if (!mat.HasProperty("_OutlineColor")) { SkadiErrorDisplay.NotFindProperty("_OutlineColor"); return; }
             
             mat.SetColor("_OutlineColor", col);
         }
@@ -60,7 +63,7 @@ namespace AyahaShader.Skadi
         {
             Material mat = renderer.material;
 
-            if(!mat.HasProperty("_UseOutline")) { NotFindProperty("_UseOutline"); return; }
+            if(!mat.HasProperty("_UseOutline")) { SkadiErrorDisplay.NotFindProperty("_UseOutline"); return; }
 
             mat.SetInt("_UseOutline", Convert.ToInt32(isEnable));
         }
@@ -73,7 +76,7 @@ namespace AyahaShader.Skadi
         {
             Material mat = renderer.material;
 
-            if (!mat.HasProperty("_UseOutline")) { NotFindProperty("_UseOutline"); return false; }
+            if (!mat.HasProperty("_UseOutline")) { SkadiErrorDisplay.NotFindProperty("_UseOutline"); return false; }
 
             return Convert.ToBoolean(mat.GetInt("_UseOutline"));
         }
@@ -87,7 +90,7 @@ namespace AyahaShader.Skadi
         {
             Material mat = renderer.material;
 
-            if (!mat.HasProperty("_UseEmission")) { NotFindProperty("_UseEmission"); return; }
+            if (!mat.HasProperty("_UseEmission")) { SkadiErrorDisplay.NotFindProperty("_UseEmission"); return; }
 
             mat.SetInt("_UseEmission", Convert.ToInt32(isEnable));
         }
@@ -100,7 +103,7 @@ namespace AyahaShader.Skadi
         {
             Material mat = renderer.material;
 
-            if(!mat.HasProperty("_UseEmission")) { NotFindProperty("_UseEmission"); return false; }
+            if(!mat.HasProperty("_UseEmission")) { SkadiErrorDisplay.NotFindProperty("_UseEmission"); return false; }
 
             return Convert.ToBoolean(mat.GetInt("_UseEmission"));
         }
@@ -114,7 +117,7 @@ namespace AyahaShader.Skadi
         {
             Material mat = renderer.material;
 
-            if (!mat.HasProperty("_EmissionPower")) { NotFindProperty("_EmissionPower"); return; }
+            if (!mat.HasProperty("_EmissionPower")) { SkadiErrorDisplay.NotFindProperty("_EmissionPower"); return; }
 
             mat.SetFloat("_EmissionPower", power);
         }
@@ -128,7 +131,7 @@ namespace AyahaShader.Skadi
         {
             Material mat = renderer.material;
 
-            if (!mat.HasProperty("_Flicker")) { NotFindProperty("_Flicker"); return; }
+            if (!mat.HasProperty("_Flicker")) { SkadiErrorDisplay.NotFindProperty("_Flicker"); return; }
 
             mat.SetInt("_Flicker", (int)mode);
         }
@@ -142,7 +145,7 @@ namespace AyahaShader.Skadi
         {
             Material mat = renderer.material;
 
-            if (!mat.HasProperty("_Frequency")) { NotFindProperty("_Frequency"); return; }
+            if (!mat.HasProperty("_Frequency")) { SkadiErrorDisplay.NotFindProperty("_Frequency"); return; }
 
             mat.SetFloat("_Frequency", frequency);
         }
@@ -156,7 +159,7 @@ namespace AyahaShader.Skadi
         {
             Material mat = renderer.material;
 
-            if (!mat.HasProperty("_UseUVScroll")) { NotFindProperty("_UseUVScroll"); return; }
+            if (!mat.HasProperty("_UseUVScroll")) { SkadiErrorDisplay.NotFindProperty("_UseUVScroll"); return; }
 
             mat.SetInt("_UseUVScroll", Convert.ToInt32(isEnable));
         }
@@ -169,7 +172,7 @@ namespace AyahaShader.Skadi
         {
             Material mat = renderer.material;
 
-            if (!mat.HasProperty("_UseUVScroll")) { NotFindProperty("_UseUVScroll"); return false; }
+            if (!mat.HasProperty("_UseUVScroll")) { SkadiErrorDisplay.NotFindProperty("_UseUVScroll"); return false; }
 
             return Convert.ToBoolean(mat.GetInt("_UseUVScroll"));
         }
@@ -183,20 +186,11 @@ namespace AyahaShader.Skadi
         {
             Material mat = renderer.material;
 
-            if (!mat.HasProperty("_UVScroll_X")) { NotFindProperty("_UVScroll_X"); return; }
-            if (!mat.HasProperty("_UVScroll_Y")) { NotFindProperty("_UVScroll_Y"); return; }
+            if (!mat.HasProperty("_UVScroll_X")) { SkadiErrorDisplay.NotFindProperty("_UVScroll_X"); return; }
+            if (!mat.HasProperty("_UVScroll_Y")) { SkadiErrorDisplay.NotFindProperty("_UVScroll_Y"); return; }
 
             mat.SetFloat("_UVScroll_X", vector2.x);
             mat.SetFloat("_UVScroll_Y", vector2.y);
-        }
-
-
-        /// <summary>
-        /// プロパティが見つからなかった場合にエラーを出します。
-        /// </summary>
-        private static void NotFindProperty(string propertyName)
-        {
-            Debug.Log("Not find " + propertyName);
         }
     }
 }

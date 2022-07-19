@@ -1,7 +1,7 @@
 SkadiShader
 
-v0.1.16
+v0.1.17
 
-GUIのFrequencyの項目をLINE以外を設定した時のみ表示するようにした
+DamageFrameにFrequencyを追加、GUIも変更
 
-2022/07/16
+2022/07/19

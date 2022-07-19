@@ -2,11 +2,11 @@ Shader "Skadi/UI/Skadi_UI_DamageFrame"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
         _Color("Color", Color) = (1.0,1.0,1.0,1.0)
         _SizeX("WideSize", Range(0.0, 1.0))= 0.3
         _SizeY("HeightSize",Range(0.0, 1.0))=0.3
         [Enum(LINE,0, SIN,1, SAW,2, TRIANGLE,3, SQUARE,4)] _Flicker ("Emission Flicker", int) = 0
+        _Frequency ("Frequency", float) = 1.0
     }
     SubShader
     {
@@ -52,6 +52,7 @@ Shader "Skadi/UI/Skadi_UI_DamageFrame"
             uniform float _SizeX;
             uniform float _SizeY;
             uniform int _Flicker;
+            uniform float _Frequency;
 
             float sdBox(float2 p, float2 s)
             {
@@ -63,7 +64,7 @@ Shader "Skadi/UI/Skadi_UI_DamageFrame"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.uv = v.uv;
                 return o;
             }
 
@@ -73,7 +74,7 @@ Shader "Skadi/UI/Skadi_UI_DamageFrame"
                 float3 col = _Color.rgb;
                 float box = sdBox(uv, float2((1.-_SizeX)*.5, (1.-_SizeY)*.5));
 
-                float4 lastCol=float4(col.rgb, max(box,0.)*FlickerWave(_Flicker, 1.));
+                float4 lastCol=float4(col.rgb, max(box,0.)*FlickerWave(_Flicker, _Frequency));
                 return lastCol;
             }
             ENDCG
