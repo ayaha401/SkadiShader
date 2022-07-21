@@ -1,4 +1,4 @@
-Shader "Skadi/Skadi_Sprite_Unlit_Outline"
+Shader "Skadi/Sprite/Skadi_Sprite_Unlit_Outline"
 {
     Properties
     {

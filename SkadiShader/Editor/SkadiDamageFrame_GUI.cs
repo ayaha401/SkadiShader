@@ -19,16 +19,21 @@ namespace AyahaShader.Skadi
         private MaterialProperty Flicker;
         private MaterialProperty Frequency;
 
+        // Advanced Settings
+        private MaterialProperty ImageSizeX;
+        private MaterialProperty ImageSizeY;
+
         private int selectFlicker;
+        private bool advancedSettingsFoldout = false;
 
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] Prop)
         {
             var material = (Material)materialEditor.target;
             FindProperties(Prop);
 
-            Information();
+            SkadiCustomUI.Information();
 
-            GUIPartition();
+            SkadiCustomUI.GUIPartition();
 
             // èâä˙èÛë‘ÇÃGUIÇï\é¶Ç≥ÇπÇÈ
             //base.OnGUI(materialEditor, Prop);
@@ -39,7 +44,7 @@ namespace AyahaShader.Skadi
                 materialEditor.ShaderProperty(FrameColor, new GUIContent("Frame Color"));
             }
 
-            GUIPartition();
+            SkadiCustomUI.GUIPartition();
 
             SkadiCustomUI.Title("FrameSize");
             using (new EditorGUILayout.VerticalScope(GUI.skin.box))
@@ -48,7 +53,7 @@ namespace AyahaShader.Skadi
                 materialEditor.ShaderProperty(SizeY, new GUIContent("SizeY"));
             }
 
-            GUIPartition();
+            SkadiCustomUI.GUIPartition();
 
             SkadiCustomUI.Title("Flicker");
             using (new EditorGUILayout.VerticalScope(GUI.skin.box))
@@ -69,6 +74,15 @@ namespace AyahaShader.Skadi
                     materialEditor.ShaderProperty(Frequency, new GUIContent("Frequency"));
                 }
             }
+
+            SkadiCustomUI.GUIPartition();
+
+            advancedSettingsFoldout = SkadiCustomUI.Foldout("Advanced Settings", advancedSettingsFoldout);
+            if(advancedSettingsFoldout)
+            {
+                Vector2 imageSize = new Vector2(ImageSizeX.floatValue, ImageSizeY.floatValue);
+                EditorGUILayout.Vector2Field("ImageSize", imageSize);
+            }
         }
 
         private void FindProperties(MaterialProperty[] _Prop)
@@ -83,35 +97,10 @@ namespace AyahaShader.Skadi
             // Flicker
             Flicker = FindProperty("_Flicker", _Prop, false);
             Frequency = FindProperty("_Frequency", _Prop, false);
-        }
 
-        private void GUIPartition()
-        {
-            GUI.color = Color.gray;
-            GUILayout.Box("", GUILayout.Height(2), GUILayout.ExpandWidth(true));
-            GUI.color = Color.white;
-        }
-
-        private void Information()
-        {
-            SkadiCustomUI.Title("Info");
-            using (new EditorGUILayout.VerticalScope())
-            {
-                using (new EditorGUILayout.HorizontalScope())
-                {
-                    EditorGUILayout.LabelField("Version");
-                    EditorGUILayout.LabelField("Version " + Skadi_Version.GetSkadiVersion());
-                }
-
-                using (new EditorGUILayout.HorizontalScope())
-                {
-                    EditorGUILayout.LabelField("How to use (Japanese)");
-                    if (GUILayout.Button("How to use (Japanese)"))
-                    {
-                        System.Diagnostics.Process.Start("https://github.com/ayaha401/SkadiShader");
-                    }
-                }
-            }
+            // ImageSize
+            ImageSizeX = FindProperty("_ImageSizeX", _Prop, false);
+            ImageSizeY = FindProperty("_ImageSizeY", _Prop, false);
         }
     }
 }

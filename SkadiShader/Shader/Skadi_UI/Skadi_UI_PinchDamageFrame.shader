@@ -1,4 +1,4 @@
-Shader "Skadi/UI/Skadi_UI_DamageFrame"
+Shader "Skadi/UI/Skadi_UI_PinchDamageFrame"
 {
     Properties
     {
@@ -99,7 +99,7 @@ Shader "Skadi/UI/Skadi_UI_DamageFrame"
                     float2 neighbor=float2((float)x, (float)y);
                     float2 p=f2rand2HalfOne((i+neighbor)*perlinNoise(uv.yy+_Time.y*10., 10.));
                 
-                    p=.5+.5*sin(3*_Time.y+SKADI_TAU*p);
+                    p=.5+.5*sin(_Time.y+SKADI_TAU*p);
                     float2 diff=neighbor+p-f;
                     float dist=polyDistance(diff, 3.);
 
@@ -125,9 +125,10 @@ Shader "Skadi/UI/Skadi_UI_DamageFrame"
 
                 float3 col = _Color.rgb;
                 float frame = sdBox(frameUV, float2(1.-_SizeX, 1.-_SizeY));
+                float pattern = smoothstep(.06,.08,gridgeEffect(patternUV,5.));
 
-                float3 frameCol = col.rgb;
-                float4 lastCol=float4(frameCol, max(frame,0.)*FlickerWave(_Flicker, _Frequency));
+                float3 frameCol = col.rgb + 1-smoothstep(.1,.2,gridgeEffect(patternUV,5.)).xxx;
+                float4 lastCol=float4(frameCol, max(frame,0.)*pattern*FlickerWave(_Flicker, _Frequency));
                 return lastCol;
             }
             ENDCG

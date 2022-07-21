@@ -31,9 +31,9 @@ namespace AyahaShader.Skadi
         private MaterialProperty UseOutline;
         private MaterialProperty OutlineColor;
 
-        private bool uvScrollFoldout;
-        private bool outlineFoldout;
-        private bool emissionFoldout;
+        private bool uvScrollToggleFoldout;
+        private bool outlineToggleFoldout;
+        private bool emissionToggleFoldout;
         private int selectFlicker;
 
 
@@ -45,9 +45,9 @@ namespace AyahaShader.Skadi
             var material = (Material)materialEditor.target;
             FindProperties(Prop);
 
-            Information();
+            SkadiCustomUI.Information();
 
-            GUIPartition();
+            SkadiCustomUI.GUIPartition();
 
             // èâä˙èÛë‘ÇÃGUIÇï\é¶Ç≥ÇπÇÈ
             //base.OnGUI(materialEditor, Prop);
@@ -67,9 +67,9 @@ namespace AyahaShader.Skadi
 
                 materialEditor.ShaderProperty(BlendMode, new GUIContent("BlendMode"));
 
-                if (material.GetInt("_UseUVScroll") == 1) uvScrollFoldout = true;
-                uvScrollFoldout = EditorGUILayout.ToggleLeft("UseUVScroll", uvScrollFoldout);
-                if(uvScrollFoldout)
+                if (material.GetInt("_UseUVScroll") == 1) uvScrollToggleFoldout = true;
+                uvScrollToggleFoldout = EditorGUILayout.ToggleLeft("UseUVScroll", uvScrollToggleFoldout);
+                if(uvScrollToggleFoldout)
                 {
                     material.SetInt("_UseUVScroll", 1);
                     EditorGUI.indentLevel++;
@@ -83,14 +83,14 @@ namespace AyahaShader.Skadi
                 }
             }
 
-            GUIPartition();
+            SkadiCustomUI.GUIPartition();
 
             // Outline
             if(UseOutline != null)
             {
-                if (material.GetInt("_UseOutline") == 1) outlineFoldout = true;
-                outlineFoldout = SkadiCustomUI.Foldout("UseOutline", outlineFoldout);
-                if (outlineFoldout)
+                if (material.GetInt("_UseOutline") == 1) outlineToggleFoldout = true;
+                outlineToggleFoldout = SkadiCustomUI.ToggleFoldout("UseOutline", outlineToggleFoldout);
+                if (outlineToggleFoldout)
                 {
                     material.SetInt("_UseOutline", 1);
                     EditorGUI.indentLevel++;
@@ -106,14 +106,14 @@ namespace AyahaShader.Skadi
                 }
             }
 
-            GUIPartition();
+            SkadiCustomUI.GUIPartition();
 
             // Emission
             if (UseEmission != null)
             {
-                if (material.GetInt("_UseEmission") == 1) emissionFoldout = true;
-                emissionFoldout = SkadiCustomUI.Foldout("UseEmission", emissionFoldout);
-                if (emissionFoldout)
+                if (material.GetInt("_UseEmission") == 1) emissionToggleFoldout = true;
+                emissionToggleFoldout = SkadiCustomUI.ToggleFoldout("UseEmission", emissionToggleFoldout);
+                if (emissionToggleFoldout)
                 {
                     material.SetInt("_UseEmission", 1);
                     using (new EditorGUILayout.VerticalScope(GUI.skin.box))
@@ -142,12 +142,8 @@ namespace AyahaShader.Skadi
                     material.SetInt("_UseEmission", 0);
                 }
             }
-        
 
-            GUIPartition();
-        
-
-
+            SkadiCustomUI.GUIPartition();
         }
 
     
@@ -176,35 +172,6 @@ namespace AyahaShader.Skadi
             // Outline
             UseOutline = FindProperty("_UseOutline", _Prop, false);
             OutlineColor = FindProperty("_OutlineColor", _Prop, false);
-        }
-
-        private void GUIPartition()
-        {
-            GUI.color = Color.gray;
-            GUILayout.Box("", GUILayout.Height(2), GUILayout.ExpandWidth(true));
-            GUI.color = Color.white;
-        }
-
-        private void Information()
-        {
-            SkadiCustomUI.Title("Info");
-            using (new EditorGUILayout.VerticalScope())
-            {
-                using (new EditorGUILayout.HorizontalScope())
-                {
-                    EditorGUILayout.LabelField("Version");
-                    EditorGUILayout.LabelField("Version " + Skadi_Version.GetSkadiVersion());
-                }
-
-                using (new EditorGUILayout.HorizontalScope())
-                {
-                    EditorGUILayout.LabelField("How to use (Japanese)");
-                    if (GUILayout.Button("How to use (Japanese)"))
-                    {
-                        System.Diagnostics.Process.Start("https://github.com/ayaha401/SkadiShader");
-                    }
-                }
-            }
         }
     }
 }

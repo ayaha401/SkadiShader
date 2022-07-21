@@ -1,4 +1,4 @@
-Shader "Skadi/Skadi_Sprite_Lit"
+Shader "Skadi/Sprite/Skadi_Sprite_Lit"
 {
     Properties
     {

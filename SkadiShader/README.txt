@@ -1,7 +1,8 @@
 SkadiShader
 
-v0.1.17
+v0.1.18
 
-DamageFrameにFrequencyを追加、GUIも変更
+Skadi_UI_PinchDamageFrame.Shaderを追加
+GUIのスクリプトを変更
 
-2022/07/19
+2022/07/16
