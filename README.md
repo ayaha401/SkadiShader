@@ -7,6 +7,9 @@ Unity 2021.3.41f1 (URP)
 
 # 更新履歴
 ## v.0.1.n 
+#### v.0.1.18
+* Skadi_UI_PinchDamageFrame.Shaderを追加
+* GUIのスクリプトを変更
 #### v.0.1.17
 * DamageFrameにFrequencyを追加、GUIも変更
 #### v.0.1.16
