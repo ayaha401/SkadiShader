@@ -15,10 +15,22 @@ TEXTURE2D(_OETex);
 
 SamplerState sampler_MainTex;
 
+// OESDefault
+uniform int _UseOutlineDefault;
+uniform int _OutlineDefault;
+uniform int _UseEmissionDefault;
+uniform int _EmissionDefault;
+// uniform int _UseStencilDefault;
+// uniform int _StencilDefault;
+
 // UVScroll
 uniform int _UseUVScroll;
 uniform float _UVScroll_X;
 uniform float _UVScroll_Y;
+
+// Outline
+uniform int _UseOutline;
+uniform float4 _OutlineColor;
 
 // Emission
 uniform int _UseEmission;
@@ -46,6 +58,15 @@ struct v2f
     #if defined(DEBUG_DISPLAY)
         float3  positionWS  : TEXCOORD2;
     #endif
+
+    //==================//
+    // x    : outline   //
+    // y    : emission  //
+    // z    : stencil   //
+    // w    : not used  //
+    //==================//
+    float4 OESDefault : TEXCOORD3;
+    
     UNITY_VERTEX_OUTPUT_STEREO
 };
 

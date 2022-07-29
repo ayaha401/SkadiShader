@@ -15,6 +15,12 @@ Shader "Skadi/Sprite/Skadi_Sprite_Lit_Outline"
 
         // OE
         _OETex ("OETexture",2D) = "black" {}
+        [Toggle] _UseOutlineDefault ("Use OutlineDefault", int) = 0
+        [Enum(Black,0, White,1)] _OutlineDefault ("OutlineDefault", int) = 0
+        [Toggle] _UseEmissionDefault ("Use EmissionDefault", int) = 0
+        [Enum(Black,0, White,1)] _EmissionDefault ("EmissionDefault", int) = 0
+        // [Toggle] _UseStencilDefault ("Use StencilDefault", int) = 0
+        // [Enum(Black,0, White,1)] _StencilDefault ("StencilDefault", int) = 1
 
         // Outline
         [Toggle]_UseOutline ("Use Outline", int) = 0
@@ -28,19 +34,12 @@ Shader "Skadi/Sprite/Skadi_Sprite_Lit_Outline"
 
         // BlendMode
         [Enum(Multi, 0, Fill, 1)]_BlendMode ("Blend Mode", int) = 0
-        // [HideInInspector] _Color("Tint", Color) = (1,1,1,1)
-        // [HideInInspector] _RendererColor("RendererColor", Color) = (1,1,1,1)
-        // [HideInInspector] _Flip("Flip", Vector) = (1,1,1,1)
-        // [HideInInspector] _AlphaTex("External Alpha", 2D) = "white" {}
-        // [HideInInspector] _EnableExternalAlpha("Enable External Alpha", Float) = 0
     }
 
     SubShader
     {
         Tags 
         {
-            "Queue" = "Transparent" 
-            "RenderType" = "Transparent" 
             "RenderPipeline" = "UniversalPipeline"
             "PreviewType" = "Plane"
         }
@@ -55,13 +54,14 @@ Shader "Skadi/Sprite/Skadi_Sprite_Lit_Outline"
             Tags
             {
                 "LightMode" = "Universal2D"
+                "Queue" = "Transparent" 
+                "RenderType" = "Transparent" 
             }
 
             HLSLPROGRAM
 
             #pragma vertex vert
             #pragma fragment frag
-
             #pragma multi_compile __ USE_SHAPE_LIGHT_TYPE_0
             #pragma multi_compile __ USE_SHAPE_LIGHT_TYPE_1
             #pragma multi_compile __ USE_SHAPE_LIGHT_TYPE_2
@@ -72,24 +72,36 @@ Shader "Skadi/Sprite/Skadi_Sprite_Lit_Outline"
             ENDHLSL
         }
 
-        Pass
-        {
-            Name "Unlit_Outline"
-            Tags
-            {
-                "LightMode" = "SRPDefaultUnlit"
-            }
+        // Pass
+        // {
+        //     Name "Stencil_Pass"
+        //     Tags
+        //     {
+        //         "LightMode" = "SRPDefaultUnlit"
+        //         "Queue" = "Transparent"
+        //         "RenderType" = "Transparent"
+        //     }
 
-            HLSLPROGRAM
+        //     // Blend SrcAlpha OneMinusSrcAlpha
+        //     // ZTest Always
+        //     // ZWrite Off
 
-            #pragma vertex vert
-            #pragma fragment frag
-            #pragma multi_compile _ DEBUG_DISPLAY
+        //     Stencil
+        //     {
+        //         Ref [_StencilNum]
+        //         Comp [_StencilCompMode]
+        //         Pass [_StencilOp]
+        //     }
 
-            #include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Unlit_Outline.hlsl"
+        //     HLSLPROGRAM
 
-            ENDHLSL
-        }
+        //     #pragma vertex vert
+        //     #pragma fragment frag
+        //     #pragma multi_compile _ DEBUG_DISPLAY
+
+        //     #include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Sprite_Unlit_Stencil.hlsl"
+        //     ENDHLSL
+        // }
     }
     
     Fallback "Sprites/Default"

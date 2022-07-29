@@ -4,6 +4,7 @@
 float4 frag (v2f i) : SV_Target
 {
     const float4 mainCol = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
+    const float outline = SAMPLE_TEXTURE2D(_OETex, sampler_MainTex, i.uv).r;
     #if defined(DEBUG_DISPLAY)
         SurfaceData2D surfaceData;
         InputData2D inputData;
@@ -24,7 +25,18 @@ float4 frag (v2f i) : SV_Target
     if(_BlendMode == 0) blendCol = blendCol * i.color.rgb;
     if(_BlendMode == 1) blendCol = i.color.rgb;
 
-    float4 lastCol = float4(blendCol, mainCol.a * i.color.a);
+    // outlineCol
+    float3 outlineCol = (outline.xxx * _OutlineColor) * _UseOutline;
+    float outlineAlpha = (outline * _OutlineColor.a) * _UseOutline;
+
+    // 強制デフォルト値を使うのならば
+    if(_UseOutlineDefault)
+    {
+        outlineCol = i.OESDefault.x;
+        outlineAlpha = i.OESDefault.x;
+    }
+
+    float4 lastCol = float4(blendCol + outlineCol, mainCol.a * i.color.a + outlineAlpha);
     
     // Emission
     float3 emissionCol = 0.;
@@ -34,6 +46,9 @@ float4 frag (v2f i) : SV_Target
         emissionCol = mainCol * emissive * _EmissionPower;
         emissionCol *= FlickerWave(_Flicker, _Frequency);
     }
+
+    // 強制デフォルト値を使うのならば
+    if(_UseEmissionDefault)     emissionCol = i.OESDefault.yyy;
 
     // Add Emission
     lastCol.rgb += emissionCol;

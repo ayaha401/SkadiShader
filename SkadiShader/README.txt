@@ -1,8 +1,7 @@
 SkadiShader
 
-v0.1.18
+v0.1.19
 
-Skadi_UI_PinchDamageFrame.Shaderを追加
-GUIのスクリプトを変更
+ベースPassとアウトラインのPassを統合し、1Passにした
 
-2022/07/16
+2022/07/29
