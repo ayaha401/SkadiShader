@@ -23,6 +23,7 @@ Shader "Skadi/UI/Skadi_UI_DamageFrame"
             "PreviewType" = "Plane"
             "CanUseSpriteAtlas" = "True"
         }
+
         Blend SrcAlpha OneMinusSrcAlpha
         Cull Off
         Lighting Off
@@ -33,7 +34,6 @@ Shader "Skadi/UI/Skadi_UI_DamageFrame"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma multi_compile_fog
 
             #include "UnityCG.cginc"
             #include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Macro.hlsl"
@@ -53,8 +53,6 @@ Shader "Skadi/UI/Skadi_UI_DamageFrame"
                 float2 frameUV : TEXCOORD1;
             };
 
-            sampler2D _MainTex;
-            float4 _MainTex_ST;
             uniform float3 _Color; 
             uniform float _SizeX;
             uniform float _SizeY;
@@ -78,7 +76,7 @@ Shader "Skadi/UI/Skadi_UI_DamageFrame"
 
                 o.frameUV = v.uv*2-1;
 
-                float2 size = float2(1920.,1080.);
+                float2 size = float2(_ImageSizeX,_ImageSizeY);
                 v.uv *= size;
                 v.uv = (v.uv*2.-size.xy)/min(size.x,size.y);
                 o.patternUV = v.uv;
