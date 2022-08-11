@@ -20,6 +20,10 @@ namespace AyahaShader.Skadi
         private MaterialProperty UseStencilDefault;
         private MaterialProperty StencilDefault;
 
+        // Rotation
+        private MaterialProperty Angle;
+        private MaterialProperty Pivot;
+
         // UVScroll
         private MaterialProperty UseUVScroll;
         private MaterialProperty UVScroll_X;
@@ -79,6 +83,13 @@ namespace AyahaShader.Skadi
             using (new EditorGUILayout.VerticalScope(GUI.skin.box))
             {
                 materialEditor.TexturePropertySingleLine(new GUIContent("Main Texture"), MainTex);
+
+                // ƒ|ƒŠƒSƒ“‚Ì‰ñ“]
+                GUILayout.Label("Rotation");
+                EditorGUI.indentLevel++;
+                materialEditor.ShaderProperty(Angle, "Angle");
+                materialEditor.ShaderProperty(Pivot, "Pivot");
+                EditorGUI.indentLevel--;
 
                 materialEditor.TexturePropertySingleLine(new GUIContent("OE Texture"), OETex);
 
@@ -250,6 +261,10 @@ namespace AyahaShader.Skadi
             EmissionDefault = FindProperty("_EmissionDefault", _Prop, false);
             UseStencilDefault = FindProperty("_UseStencilDefault", _Prop, false);
             StencilDefault = FindProperty("_StencilDefault", _Prop, false);
+
+            // Rotation
+            Angle = FindProperty("_Angle", _Prop, false);
+            Pivot = FindProperty("_Pivot", _Prop, false);
 
             // UVScroll
             UseUVScroll = FindProperty("_UseUVScroll", _Prop, false);

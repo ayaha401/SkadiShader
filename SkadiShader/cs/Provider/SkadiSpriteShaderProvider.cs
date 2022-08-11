@@ -192,6 +192,23 @@ namespace AyahaShader.Skadi
             mat.SetFloat("_UVScroll_X", vector2.x);
             mat.SetFloat("_UVScroll_Y", vector2.y);
         }
+
+        /// <summary>
+        /// ポリゴンを回転させます。
+        /// </summary>
+        /// <param name="renderer">レンダラー</param>
+        /// <param name="angle">回転角度</param>
+        /// <param name="pivot">中心点をずらす</param>
+        public static void SetRotation(SpriteRenderer renderer, float angle, Vector2 pivot)
+        {
+            Material mat = renderer.material;
+
+            if(!mat.HasProperty("_Angle")) { SkadiErrorDisplay.NotFindProperty("_Angle"); return; }
+            if(!mat.HasProperty("_Pivot")) { SkadiErrorDisplay.NotFindProperty("_Pivot"); return; }
+
+            mat.SetFloat("_Angle", angle);
+            mat.SetVector("_Pivot", new Vector4(pivot.x, pivot.y, 0f, 0f));
+        }
     }
 }
 

@@ -7,6 +7,10 @@ v2f vert (appdata v)
     UNITY_SETUP_INSTANCE_ID(v);
     UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
+    // ポリゴンを回転させる
+    v.positionOS.xy += _Pivot;
+    v.positionOS.xy = mul(v.positionOS.xy, SKADI_ROT_Z(SKADI_DEG2RAD(_Angle)));
+
     o.positionCS = TransformObjectToHClip(v.positionOS);
 
     #if defined(DEBUG_DISPLAY)

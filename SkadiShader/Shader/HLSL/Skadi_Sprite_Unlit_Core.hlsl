@@ -15,6 +15,10 @@ TEXTURE2D(_OETex);
 
 SamplerState sampler_MainTex;
 
+// Rotation
+uniform float _Angle;
+uniform float2 _Pivot;
+
 // OESDefault
 uniform int _UseOutlineDefault;
 uniform int _OutlineDefault;
@@ -43,7 +47,7 @@ uniform int _BlendMode;
 
 struct appdata
 {
-    float3 positionOS : POSITION;
+    float4 positionOS : POSITION;
     float4 color : COLOR;
     float2 uv : TEXCOORD0;
     UNITY_VERTEX_INPUT_INSTANCE_ID

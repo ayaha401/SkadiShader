@@ -6,5 +6,7 @@
 #define SKADI_TAU 6.2831850718
 
 #define COMPARE_EPS(n) max(n,SKADI_EPS)
+#define SKADI_ROT_Z(a)  float2x2(cos(a),sin(a),-sin(a),cos(a))
+#define SKADI_DEG2RAD(x) SKADI_PI/180*x
 
 #endif

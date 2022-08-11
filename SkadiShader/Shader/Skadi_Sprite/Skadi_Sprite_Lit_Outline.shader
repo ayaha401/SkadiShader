@@ -5,6 +5,10 @@ Shader "Skadi/Sprite/Skadi_Sprite_Lit_Outline"
         // Main
         _MainTex ("Texture", 2D) = "white" {}
 
+        // Rotation
+        _Angle ("Angle", float) = 0
+        [Vec2]_Pivot ("Pivot", Vector) = (0,0,0,0)
+
         // UVScroll
         [Toggle]_UseUVScroll("Use UV Scroll", int) = 0
         _UVScroll_X("UV Scroll X",Range(-3.0,3.0)) = 0.0
