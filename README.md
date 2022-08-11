@@ -6,6 +6,9 @@ AyahaShader > SkadiShader
 Unity 2021.3.41f1 (URP)
 
 # 更新履歴
+## v.0.2.n
+#### v.0.2.0
+* フェードアウトをするシェーダーを追加
 ## v.0.1.n 
 #### v.0.1.18
 * Skadi_UI_PinchDamageFrame.Shaderを追加
