@@ -21,4 +21,9 @@ float FlickerWave(int flickerMode, float flickerSpeed)
     return wave;
 }
 
+float Remap(float val, float2 inMinMax, float2 outMinMax)
+{
+    return clamp(outMinMax.x+(val-inMinMax.x)*(outMinMax.y-outMinMax.x)/(inMinMax.y-inMinMax.x), outMinMax.x, outMinMax.y);
+}
+
 #endif
