@@ -1,28 +1,40 @@
-Shader "Skadi/PPS/Skadi_PPS_Scanline"
+Shader "Skadi/UI/Skadi_UI_Scanline"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _DistortPower ("Distort Power", Range(0.0,1.0)) = 0.0
+        _Brightness ("Brightness", Range(0.0,1.0)) = 0.8
+        _LineAmount ("LineAmount", float)=200
+        _LineMoveSpeed ("Line MoveSpeed", float) = 0.0
+        [Toggle]_UseVignette ("Use Vignette", float) = 0.0
+        [Toggle]_LineNonBlur ("Line NonBlur", float) = 0.0
+        [Toggle]_UseGlitch ("Use Glitch", float) = 0.0
     }
     SubShader
     {
         Tags
         {
-            "RenderType"="Opaque"
+            "RenderType" = "Transparent"
+            "Queue" = "Transparent"
+            "IgnoreProjector" = "True"
+            "PreviewType" = "Plane"
+            "CanUseSpriteAtlas" = "True"
         }
 
+        Blend SrcAlpha OneMinusSrcAlpha
         CUll Off
         ZWrite Off
         ZTest Always
 
         Pass
         {
-            HLSLPROGRAM
+            CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
             #pragma enable_d3d11_debug_symbols
 
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "UnityCG.cginc"
             #include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Macro.hlsl"
             #include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Function.hlsl"
             #include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Noise.hlsl"
@@ -37,11 +49,10 @@ Shader "Skadi/PPS/Skadi_PPS_Scanline"
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
-                UNITY_VERTEX_OUTPUT_STEREO
             };
 
-            TEXTURE2D(_MainTex);
-            SAMPLER(sampler_MainTex);
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
 
             uniform float _DistortPower;
             uniform float _Brightness;
@@ -74,14 +85,12 @@ Shader "Skadi/PPS/Skadi_PPS_Scanline"
             v2f vert (appdata v)
             {
                 v2f o = (v2f)0;
-                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
-
-                o.vertex = TransformObjectToHClip(v.vertex);
+                o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = v.uv;
                 return o;
             }
 
-            float4 frag (v2f i) : SV_Target
+            fixed4 frag (v2f i) : SV_Target
             {
                 float2 p = distort(i.uv);
 
@@ -90,17 +99,17 @@ Shader "Skadi/PPS/Skadi_PPS_Scanline"
 
                 float strength = pow(perlinNoise((float2)_Time.y, 10.),4.);
 
-                float3 mainTexCol = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, p + (noise * strength * _UseGlitch));
+                float3 mainTexCol = tex2D(_MainTex, p + (noise * strength * _UseGlitch));
 
                 float lineCol = sin((i.uv.y*_LineAmount)+_Time.y*_LineMoveSpeed);
                 if(_LineNonBlur > 0.) lineCol = step(.2, lineCol);
-                lineCol = Remap(lineCol, float2(-1,1), float2(_Brightness, 1));
+                lineCol = Remap(lineCol, float2(-1,1), float2(0, _Brightness));
 
                 mainTexCol *= lineCol;
                 mainTexCol=vignette(p,mainTexCol, _UseVignette);
-                return float4(mainTexCol, 1.);
+                return float4((float3)0, lineCol*_Brightness);
             }
-            ENDHLSL
+            ENDCG
         }
     }
 }

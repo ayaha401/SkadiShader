@@ -71,6 +71,7 @@ Shader "Skadi/Sprite/Skadi_Sprite_Lit_Outline"
             #pragma multi_compile __ USE_SHAPE_LIGHT_TYPE_2
             #pragma multi_compile __ USE_SHAPE_LIGHT_TYPE_3
             #pragma multi_compile _ DEBUG_DISPLAY
+            #pragma enable_d3d11_debug_symbols
 
             #include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Sprite_Lit_Core.hlsl"
             ENDHLSL

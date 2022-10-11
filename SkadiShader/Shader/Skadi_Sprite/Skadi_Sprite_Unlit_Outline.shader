@@ -74,6 +74,7 @@ Shader "Skadi/Sprite/Skadi_Sprite_Unlit_Outline"
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile _ DEBUG_DISPLAY
+            #pragma enable_d3d11_debug_symbols
 
             #include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Sprite_Unlit_Core.hlsl"
 
