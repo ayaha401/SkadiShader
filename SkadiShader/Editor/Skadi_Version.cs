@@ -6,7 +6,7 @@ namespace AyahaShader.Skadi
 {
     public static class Skadi_Version
     {
-        private static string version = "0.3.0";
+        private static string version = "0.3.2";
         public static string GetSkadiVersion()
         {
             return version;
