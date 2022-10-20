@@ -82,14 +82,17 @@ Shader "Skadi/UI/Skadi_UI_CircleFade"
 
             float4 frag (v2f i) : SV_Target
             {
-                float maxDist;
-                maxDist=distance(float2(_FadeTarget),float2(-1.,-1.));
-                maxDist=max(maxDist,distance(float2(_FadeTarget),float2(1.,-1.)));
-                maxDist=max(maxDist,distance(float2(_FadeTarget),float2(1.,1.)));
-                maxDist=max(maxDist,distance(float2(_FadeTarget),float2(-1.,1.)));
-
                 float aspect = _ImageSizeX/_ImageSizeY;
-                float fade = step(.001 ,Circle(i.uv, (1.-_Fadeout)*aspect*maxDist));
+
+                const float2 fadeTargetPos = float2(_FadeTarget.x*aspect, _FadeTarget.y);
+                float maxDist;
+                maxDist=distSquared(fadeTargetPos, float2(-1.*aspect,-1.));
+                maxDist=max(maxDist, distSquared(fadeTargetPos, float2(1.*aspect,-1.)));
+                maxDist=max(maxDist, distSquared(fadeTargetPos, float2(1.*aspect,1.)));
+                maxDist=max(maxDist, distSquared(fadeTargetPos, float2(-1.*aspect,1.)));
+                maxDist=sqrt(maxDist);
+
+                float fade = step(.001 ,Circle(i.uv, (1.-_Fadeout)*maxDist));
                 float4 col = float4(_Color,fade);
                 return col;
             }

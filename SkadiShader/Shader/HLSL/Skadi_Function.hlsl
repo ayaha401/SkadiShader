@@ -26,4 +26,10 @@ float Remap(float val, float2 inMinMax, float2 outMinMax)
     return clamp(outMinMax.x+(val-inMinMax.x)*(outMinMax.y-outMinMax.x)/(inMinMax.y-inMinMax.x), outMinMax.x, outMinMax.y);
 }
 
+float distSquared(float2 A, float2 B)
+{
+    float2 C=A-B;
+    return dot(C,C);
+}
+
 #endif

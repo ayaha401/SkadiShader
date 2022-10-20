@@ -33,6 +33,18 @@ namespace AyahaShader.Skadi
 
             material.SetColor("_Color", col);
         }
+
+        /// <summary>
+        /// フェードの割合を変える
+        /// </summary>
+        /// <param name="material">マテリアル</param>
+        /// <param name="ratio">割合</param>
+        public static void SetFadeRatio(Material material, float ratio)
+        {
+            if(!material.HasProperty("_Fadeout")) { SkadiErrorDisplay.NotFindProperty("_Fadeout"); return; }
+
+            material.SetFloat("_Fadeout", ratio);
+        }
     }
 }
 
