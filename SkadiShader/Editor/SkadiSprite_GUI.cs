@@ -13,13 +13,6 @@ namespace AyahaShader.Skadi
         private MaterialProperty LightingMask;
         private MaterialProperty OETex;
 
-        private MaterialProperty UseOutlineDefault;
-        private MaterialProperty OutlineDefault;
-        private MaterialProperty UseEmissionDefault;
-        private MaterialProperty EmissionDefault;
-        private MaterialProperty UseStencilDefault;
-        private MaterialProperty StencilDefault;
-
         // Rotation
         private MaterialProperty Angle;
         private MaterialProperty Pivot;
@@ -46,20 +39,12 @@ namespace AyahaShader.Skadi
         private MaterialProperty StencilNum;
         private MaterialProperty StencilCompMode;
         private MaterialProperty StencilOp;
-        private MaterialProperty UseMirrorImage;
-        private MaterialProperty MirrorImageDist;
-        private MaterialProperty MirrorImageTrans;
 
-
-        private bool useTexDefault = false;
-        private bool useOutlineDefault = false;
-        private bool useEmissionDefault = false;
         private bool uvScrollToggleFoldout;
         private bool outlineToggleFoldout;
         private bool emissionToggleFoldout;
         private int selectFlicker;
         private bool advancedSettingsFoldout = false;
-        //private bool mirrorImageToggleFoldout = false;
 
 
 
@@ -92,33 +77,6 @@ namespace AyahaShader.Skadi
                 EditorGUI.indentLevel--;
 
                 materialEditor.TexturePropertySingleLine(new GUIContent("OE Texture"), OETex);
-
-                EditorGUI.indentLevel++;
-                useTexDefault = EditorGUILayout.Foldout(useTexDefault, "Use OETextureDefault", true);
-                if(useTexDefault)
-                {
-                    EditorGUI.indentLevel++;
-                    if (Convert.ToBoolean(UseOutlineDefault.intValue)) useOutlineDefault = true;
-                    using (new EditorGUILayout.HorizontalScope())
-                    {
-                        useOutlineDefault = EditorGUILayout.ToggleLeft("UseOutlineDefault", useOutlineDefault);
-                        EditorGUI.BeginDisabledGroup(!useOutlineDefault);
-                            materialEditor.ShaderProperty(OutlineDefault,string.Empty);
-                        EditorGUI.EndDisabledGroup();
-                    }
-
-                    if (Convert.ToBoolean(UseEmissionDefault.intValue)) useEmissionDefault = true;
-                    using (new EditorGUILayout.HorizontalScope())
-                    {
-                        useEmissionDefault = EditorGUILayout.ToggleLeft("UseEmissionDefault", useEmissionDefault);
-                        EditorGUI.BeginDisabledGroup(!useEmissionDefault);
-                        materialEditor.ShaderProperty(EmissionDefault, string.Empty);
-                        EditorGUI.EndDisabledGroup();
-                    }
-
-                    EditorGUI.indentLevel--;
-                }
-                EditorGUI.indentLevel--;
 
                 if (LightingMask != null)
                 {
@@ -210,42 +168,14 @@ namespace AyahaShader.Skadi
             {
                 // Stencil
                 SkadiCustomUI.Title("Stencil");
-                //using (new EditorGUILayout.VerticalScope(GUI.skin.box))
-                //{
-                //    materialEditor.ShaderProperty(StencilNum, new GUIContent("Stencil Number"));
-                //    materialEditor.ShaderProperty(StencilCompMode, new GUIContent("Stencil CompMode"));
-                //    materialEditor.ShaderProperty(StencilOp, new GUIContent("Stencil Operation"));
-
-                //    if (material.GetInt("_UseMirrorImage") == 1) mirrorImageToggleFoldout = true;
-                //    mirrorImageToggleFoldout = EditorGUILayout.ToggleLeft("Use MirrorImage", mirrorImageToggleFoldout);
-                //    if(mirrorImageToggleFoldout)
-                //    {
-                //        material.SetInt("_UseMirrorImage", 1);
-                //        EditorGUI.indentLevel++;
-                //        materialEditor.ShaderProperty(MirrorImageDist, new GUIContent("MirrorImage Distance"));
-                //        materialEditor.ShaderProperty(MirrorImageTrans, new GUIContent("MirrorImage Transparent"));
-                //        EditorGUI.indentLevel--;
-                //    }
-                //    else
-                //    {
-                //        material.SetInt("_UseMirrorImage", 0);
-                //    }
-                    
-                //    if(GUILayout.Button("Set Default"))
-                //    {
-                //        material.SetInt("_StencilNum", 0);
-                //        material.SetInt("_StencilCompMode", 8);
-                //        material.SetInt("_StencilOp", 2);
-                //        material.SetInt("_UseMirrorImage", 0);
-                //        mirrorImageToggleFoldout = false;
-                //        material.SetFloat("_MirrorImageDist", 0.03f);
-                //        material.SetFloat("_MirrorImageTrans", 0.5f);
-                //    }
-                //}
+                using (new EditorGUILayout.VerticalScope(GUI.skin.box))
+                {
+                    materialEditor.ShaderProperty(StencilNum, new GUIContent("Stencil Number"));
+                    materialEditor.ShaderProperty(StencilCompMode, new GUIContent("Stencil CompMode"));
+                    materialEditor.ShaderProperty(StencilOp, new GUIContent("Stencil Operation"));
+                }
             }
         }
-
-    
 
         private void FindProperties(MaterialProperty[] _Prop)
         {
@@ -253,14 +183,6 @@ namespace AyahaShader.Skadi
             MainTex = FindProperty("_MainTex", _Prop, false);
             LightingMask = FindProperty("_LightingMask", _Prop, false);
             OETex = FindProperty("_OETex", _Prop, false);
-
-            // OESDefault
-            UseOutlineDefault = FindProperty("_UseOutlineDefault", _Prop, false);
-            OutlineDefault = FindProperty("_OutlineDefault", _Prop, false);
-            UseEmissionDefault = FindProperty("_UseEmissionDefault", _Prop, false);
-            EmissionDefault = FindProperty("_EmissionDefault", _Prop, false);
-            UseStencilDefault = FindProperty("_UseStencilDefault", _Prop, false);
-            StencilDefault = FindProperty("_StencilDefault", _Prop, false);
 
             // Rotation
             Angle = FindProperty("_Angle", _Prop, false);
@@ -288,9 +210,6 @@ namespace AyahaShader.Skadi
             StencilNum = FindProperty("_StencilNum", _Prop, false);
             StencilCompMode = FindProperty("_StencilCompMode", _Prop, false);
             StencilOp = FindProperty("_StencilOp", _Prop, false);
-            UseMirrorImage = FindProperty("_UseMirrorImage", _Prop, false);
-            MirrorImageDist = FindProperty("_MirrorImageDist", _Prop, false);
-            MirrorImageTrans = FindProperty("_MirrorImageTrans", _Prop, false);
         }
     }
 }

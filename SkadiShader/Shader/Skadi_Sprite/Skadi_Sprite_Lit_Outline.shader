@@ -19,12 +19,6 @@ Shader "Skadi/Sprite/Skadi_Sprite_Lit_Outline"
 
         // OE
         _OETex ("OETexture",2D) = "black" {}
-        [Toggle] _UseOutlineDefault ("Use OutlineDefault", int) = 0
-        [Enum(Black,0, White,1)] _OutlineDefault ("OutlineDefault", int) = 0
-        [Toggle] _UseEmissionDefault ("Use EmissionDefault", int) = 0
-        [Enum(Black,0, White,1)] _EmissionDefault ("EmissionDefault", int) = 0
-        // [Toggle] _UseStencilDefault ("Use StencilDefault", int) = 0
-        // [Enum(Black,0, White,1)] _StencilDefault ("StencilDefault", int) = 1
 
         // Outline
         [Toggle]_UseOutline ("Use Outline", int) = 0
@@ -76,37 +70,6 @@ Shader "Skadi/Sprite/Skadi_Sprite_Lit_Outline"
             #include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Sprite_Lit_Core.hlsl"
             ENDHLSL
         }
-
-        // Pass
-        // {
-        //     Name "Stencil_Pass"
-        //     Tags
-        //     {
-        //         "LightMode" = "SRPDefaultUnlit"
-        //         "Queue" = "Transparent"
-        //         "RenderType" = "Transparent"
-        //     }
-
-        //     // Blend SrcAlpha OneMinusSrcAlpha
-        //     // ZTest Always
-        //     // ZWrite Off
-
-        //     Stencil
-        //     {
-        //         Ref [_StencilNum]
-        //         Comp [_StencilCompMode]
-        //         Pass [_StencilOp]
-        //     }
-
-        //     HLSLPROGRAM
-
-        //     #pragma vertex vert
-        //     #pragma fragment frag
-        //     #pragma multi_compile _ DEBUG_DISPLAY
-
-        //     #include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Sprite_Unlit_Stencil.hlsl"
-        //     ENDHLSL
-        // }
     }
     
     Fallback "Sprites/Default"

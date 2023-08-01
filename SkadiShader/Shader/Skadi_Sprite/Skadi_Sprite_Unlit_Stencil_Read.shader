@@ -1,4 +1,4 @@
-Shader "Skadi/Sprite/Skadi_Sprite_Unlit_Outline"
+Shader "Skadi/Sprite/Unlit_Stencil_Read"
 {
     Properties
     {
@@ -29,6 +29,11 @@ Shader "Skadi/Sprite/Skadi_Sprite_Unlit_Outline"
 
         // BlendMode
         [Enum(Multi,0, Fill,1)]_BlendMode ("Blend Mode", int) = 0
+    
+        // Stencil
+        _StencilNum ("Stencil Number", int) = 0
+        [Enum(UnityEngine.Rendering.CompareFunction)]_StencilCompMode ("Stencil CompMode", int) = 0
+        [Enum(UnityEngine.Rendering.StencilOp)]_StencilOp ("Stencil Operation", int) = 0
     }
 
     SubShader
@@ -37,6 +42,38 @@ Shader "Skadi/Sprite/Skadi_Sprite_Unlit_Outline"
         {
             "RenderPipeline" = "UniversalPipeline"
             "PreviewType" = "Plane"
+        }
+
+        Pass
+        {
+            Name "Stencil_Pass"
+            Tags
+            {
+                "LightMode" = "SRPDefaultUnlit"
+                "Queue" = "Transparent"
+                "RenderType" = "Transparent"
+            }
+
+            Blend SrcAlpha OneMinusSrcAlpha
+            ZTest Always
+            ZWrite Off
+
+            Stencil
+            {
+                Ref [_StencilNum]
+                Comp [_StencilCompMode]
+                Pass [_StencilOp]
+            }
+
+            HLSLPROGRAM
+
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma multi_compile _ DEBUG_DISPLAY
+
+            #define STENCIL_READ
+            #include "Assets/AyahaShader/SkadiShader/Shader/HLSL/Skadi_Sprite_Unlit_Stencil.hlsl"
+            ENDHLSL
         }
 
         Pass
@@ -52,6 +89,13 @@ Shader "Skadi/Sprite/Skadi_Sprite_Unlit_Outline"
             Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
             Cull Off
             ZWrite Off
+
+            Stencil
+            {
+                Ref 0
+                Comp [_StencilCompMode]
+                Pass [_StencilOp]
+            }
 
             HLSLPROGRAM
             

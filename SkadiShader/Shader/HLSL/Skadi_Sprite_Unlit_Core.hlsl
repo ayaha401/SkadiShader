@@ -19,14 +19,6 @@ SamplerState sampler_MainTex;
 uniform float _Angle;
 uniform float2 _Pivot;
 
-// OESDefault
-uniform int _UseOutlineDefault;
-uniform int _OutlineDefault;
-uniform int _UseEmissionDefault;
-uniform int _EmissionDefault;
-// uniform int _UseStencilDefault;
-// uniform int _StencilDefault;
-
 // UVScroll
 uniform int _UseUVScroll;
 uniform float _UVScroll_X;
@@ -62,14 +54,6 @@ struct v2f
     #if defined(DEBUG_DISPLAY)
         float3  positionWS  : TEXCOORD2;
     #endif
-
-    //==================//
-    // x    : outline   //
-    // y    : emission  //
-    // z    : stencil   //
-    // w    : not used  //
-    //==================//
-    float4 OESDefault : TEXCOORD3;
     
     UNITY_VERTEX_OUTPUT_STEREO
 };

@@ -28,12 +28,6 @@ v2f vert (appdata v)
 
     o.lightingUV = half2(ComputeScreenPos(o.positionCS / o.positionCS.w).xy);
     o.color = v.color;
-
-    // OESDefault
-    if(_UseOutlineDefault)      o.OESDefault.x = _OutlineDefault;
-    if(_UseEmissionDefault)     o.OESDefault.y = _EmissionDefault;
-    /* if(_UseStencilDefault)   */    o.OESDefault.z = 0;
-    o.OESDefault.w = 0;
     
     return o;
 }

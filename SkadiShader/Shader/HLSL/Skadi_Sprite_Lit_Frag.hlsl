@@ -21,13 +21,6 @@ float4 frag (v2f i) : SV_Target
     float3 outlineCol = (outline.xxx * _OutlineColor) * _UseOutline;
     float outlineAlpha = (outline * _OutlineColor.a) * _UseOutline;
 
-    // 強制デフォルト値を使うのならば
-    if(_UseOutlineDefault)
-    {
-        outlineCol = i.OESDefault.x;
-        outlineAlpha = i.OESDefault.x;
-    }
-
     InitializeSurfaceData(blendCol, mainCol.a * i.color.a + outlineAlpha, lightingMask, surfaceData);
     InitializeInputData(i.uv, i.lightingUV, inputData);
 
@@ -44,9 +37,6 @@ float4 frag (v2f i) : SV_Target
         emissionCol = mainCol * emissive * _EmissionPower;
         emissionCol *= FlickerWave(_Flicker, _Frequency);
     }
-
-    // 強制デフォルト値を使うのならば
-    if(_UseEmissionDefault)     emissionCol = i.OESDefault.yyy;
     
     // Add Emission
     lastCol.rgb += emissionCol;

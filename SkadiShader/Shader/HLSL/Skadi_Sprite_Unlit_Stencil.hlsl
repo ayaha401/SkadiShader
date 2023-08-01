@@ -10,12 +10,6 @@ TEXTURE2D(_OETex);
 
 SamplerState sampler_MainTex;
 
-// OESDefault
-uniform int _UseOutlineDefault;
-uniform int _OutlineDefault;
-uniform int _UseStencilDefault;
-uniform int _StencilDefault;
-
 // Outline
 uniform int _UseOutline;
 
@@ -37,14 +31,6 @@ struct v2f
     float4 color : COLOR;
     float2 uv : TEXCOORD0;
 
-    //==================//
-    // x    : outline   //
-    // y    : emission  //
-    // z    : stencil   //
-    // w    : not used  //
-    //==================//
-    float4 OESDefault : TEXCOORD1;
-
     UNITY_VERTEX_OUTPUT_STEREO
 };
 
@@ -59,17 +45,11 @@ v2f vert(appdata v)
 
     o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
-    // OESDefault
-    if(_UseOutlineDefault)      o.OESDefault.x = _OutlineDefault;
-    o.OESDefault.y = 0;
-    if(_UseStencilDefault)      o.OESDefault.z = _StencilDefault;
-    o.OESDefault.w = 0;
-
     o.color = v.color;
     return o;
 }
 
-half4 frag(v2f i) : SV_Target 
+float4 frag(v2f i) : SV_Target 
 {
     const float4 mainCol = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
     
@@ -77,18 +57,20 @@ half4 frag(v2f i) : SV_Target
     float outline = SAMPLE_TEXTURE2D(_OETex, sampler_MainTex, i.uv).r;
     outline *= _UseOutline;
 
-    // 強制デフォルト値を使うのならば
-    if(_UseOutlineDefault)      outline = i.OESDefault.x;
-
     // stencilMask
     float stencilMask = SAMPLE_TEXTURE2D(_OETex, sampler_MainTex, i.uv).b;
-    
-    // 強制デフォルト値を使うのならば
-    if(_UseStencilDefault)      stencilMask = _StencilDefault;
 
-    clip((mainCol.a+outline)*stencilMask - 0.01);
+    #ifdef STENCIL_WRITE
+        clip((mainCol.a + outline) * stencilMask - 0.01);
+        // clip((mainCol.a + outline) - 0.01); // いったんアルファだけ抜く
+        return mainCol; // いったんMainCol
+    #endif
 
-    return half4(mainCol.rgb, _MirrorImageTrans * i.color.a);
+    #ifdef STENCIL_READ
+        clip(mainCol.a - 0.01); // いったんアルファだけ抜く
+
+        return float4(float3(0,0,0), .5);
+    #endif
 }
 
 #endif
